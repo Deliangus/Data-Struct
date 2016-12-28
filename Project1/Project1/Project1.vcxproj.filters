@@ -27,13 +27,13 @@
     <ClCompile Include="线性表.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="源.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="源2.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="栈.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="最短路.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
