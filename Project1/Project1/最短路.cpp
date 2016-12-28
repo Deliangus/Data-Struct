@@ -4,12 +4,12 @@
 #include<algorithm>
 using namespace std;
 
-
+const int LIMINATION = 1111;
 void getroad(int head,int now,int aim,int**graph,int length,int dist)
 {
 	for(int i = 0;i<length;i++)
 	{
-		if(graph[now][i]>0)
+		if(graph[now][i]<LIMINATION)
 		{
 			if(i!=aim)
 			{
@@ -34,10 +34,11 @@ int main(void)
 		int **graph = new int*[point];
 
 		for(int i = 0;i<point;i++)
-		{
-			graph[i] = new int[point+1];
-			memset(graph[i],INTPTR_MAX,sizeof(graph[i]));
-		}
+			graph[i] = new int[point];
+
+		for(int i = 0;i<point;i++)
+			for(int j = 0;j<point;j++)
+				graph[i][j] = LIMINATION;
 
 		int side,head,tail,value;
 
@@ -45,18 +46,35 @@ int main(void)
 
 		for(int i = 0;i<side;i++)
 		{
+			cout<<"±ß"<<i<<endl;
 			cin>>head>>tail>>value;
 			graph[head][tail] = value;
-			graph[head][point]++;
 		}
+
+		for(int i = 0;i<point;i++)
+		{
+			for(int j = 0;j<point;j++)
+			{
+				cout<<graph[i][j]<<' ';
+			}
+			cout<<endl;
+		}
+
 		int left,right;
+		while(cin>>left>>right)
+		{
+			getroad(left,left,right,graph,point,0);
 
-		cin>>left>>right;
-
-		getroad(left,left,right,graph,point,0);
-
-		cout<<graph[left][right]<<endl;
-
+			cout<<graph[left][right]<<endl;
+			for(int i = 0;i<point;i++)
+			{
+				for(int j = 0;j<point;j++)
+				{
+					cout<<graph[i][j]<<' ';
+				}
+				cout<<endl;
+			}
+		}
 	}
 
 	return 0;
