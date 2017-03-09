@@ -9,8 +9,9 @@
     <StackPanel Orientation="Vertical">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
-                <MenuItem Header="Open" Click="Click_Open"/>
+                <MenuItem Header="Open" Click="Click_Open" InputGestureText="Alt+O"/>
                 <MenuItem Header="Save" Click="MenuItem_Click"/>
+                <MenuItem Header="New Save" Click="MenuItem_Click_1"/>
                 <Separator/>
                 <MenuItem Header="Exit"/>
             </MenuItem>

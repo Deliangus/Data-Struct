@@ -24,14 +24,12 @@ namespace Contect_Book
 	/// </summary>
 	public partial class MainWindow: Window
 	{
-		public string Xmlpath;
-		XmlDocument doc = new XmlDocument();
+		public string Xmlpath = null;
+		XmlDocument doc = null;
 		public MainWindow()
 		{
 			InitializeComponent();
 		}
-
-
 		private void Click_Open(object sender,RoutedEventArgs e)
 		{
 			OpenFileDialog fbd = new OpenFileDialog();
@@ -39,13 +37,33 @@ namespace Contect_Book
 			if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 			{
 				this.Xmlpath=fbd.FileName;
-				this.doc.LoadXml(Xmlpath);
+				this.doc=new XmlDocument();
+				doc.LoadXml(Xmlpath);
 			}
 		}
 
 		private void MenuItem_Click(object sender,RoutedEventArgs e)
 		{
+			if(doc!=null)
+			{
+				doc.Save(Xmlpath);
+				Xmlpath=null;
+			}
+		}
 
+		private void MenuItem_Click_1(object sender,RoutedEventArgs e)
+		{
+			if(doc!=null)
+			{
+				OpenFileDialog fbd = new OpenFileDialog();
+				fbd.InitialDirectory=System.Environment.CurrentDirectory;
+				if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+				{
+					this.Xmlpath=fbd.FileName;
+					doc.Save(fbd.FileName);
+					Xmlpath=null;
+				}
+			}
 		}
 	}
 }
