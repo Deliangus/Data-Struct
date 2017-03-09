@@ -19,19 +19,21 @@ namespace Hello
 		public ToolStripMenuItem menu_file_drop2;
 		public ToolStripMenuItem menu_file_drop3;
 		public ToolStripMenuItem menu_file_drop4;
-		public ToolStripMenuItem menu_edit_;  //编辑
-		public ToolStripMenuItem menu_edit_drop1;
-		public ToolStripMenuItem menu_edit_drop2;
-		public ToolStripMenuItem menu_edit_drop3;
-		public ToolStripMenuItem menu_func_;  //功能
-		public ToolStripMenuItem menu_func_drop1;
-		public ToolStripMenuItem menu_func_drop2;
-		public ToolStripMenuItem menu_func_drop3;
-		public ToolStripMenuItem menu_func_drop31;
-		public ToolStripMenuItem menu_func_drop32;
-		public ToolStripMenuItem menu_help_;  //帮助
-		public ToolStripMenuItem menu_help_drop1;
-		public ToolStripMenuItem menu_help_drop2;
+		//public ToolStripMenuItem menu_edit_;  //编辑
+		//public ToolStripMenuItem menu_edit_drop1;
+		//public ToolStripMenuItem menu_edit_drop2;
+		//public ToolStripMenuItem menu_edit_drop3;
+		//public ToolStripMenuItem menu_func_;  //功能
+		//public ToolStripMenuItem menu_func_drop1;
+		//public ToolStripMenuItem menu_func_drop2;
+		//public ToolStripMenuItem menu_func_drop3;
+		//public ToolStripMenuItem menu_func_drop31;
+		//public ToolStripMenuItem menu_func_drop32;
+		//public ToolStripMenuItem menu_help_;  //帮助
+		//public ToolStripMenuItem menu_help_drop1;
+		//public ToolStripMenuItem menu_help_drop2;
+		
+		public;
 
 		public DataGrid Data;
 		public BasicForm()
@@ -58,22 +60,20 @@ namespace Hello
 			menu_file_drop4.Font = new Font("微软雅黑",12,FontStyle.Bold);
 			menu_file.DropDownItems.Add(menu_file_drop2);
 
+			XmlDocument doc = new XmlDocument();
+			string XmlPath = System.Environment.CurrentDirectory+@"\Resource\DataBase.Xml";
+			if(!File.Exists(XmlPath))
+				doc.Load(XmlPath);
+
 			Data = new DataGrid();
 			Data.AllowSorting = true;//允许通过点击列标签进行排序
 			Data.BorderStyle = BorderStyle.FixedSingle;//边框的风格,枚举类型，0/1/2
 			Data.CaptionFont = new Font("微软雅黑",12,FontStyle.Bold);
-			Data.DataSource = new ListView();
-		}
-		public string Xmlpath;
-		private void File_drop1(object sender,EventArgs e)
-		{
-			XmlDocument doc = new XmlDocument();
-			string XmlPath = System.Environment.CurrentDirectory + @"\Resource\DataBace.Xml";
-			if(!File.Exists(XmlPath))
-				doc.Load(XmlPath);
-			doc.Load(XmlPath)
+			Data.DataSource=doc;
+
 
 		}
+
 	}
 	static class Program
 	{
