@@ -5,30 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contect_Book"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        >
     <StackPanel Orientation="Vertical">
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="Open" Click="Click_Open" InputGestureText="Alt+O"/>
-                <MenuItem Header="Save" Click="Click_Save"/>
-                <MenuItem Header="New Save" Click="Click_New_Save"/>
-                <Separator/>
-                <MenuItem Header="Exit" Click="Click_Exit"/>
-            </MenuItem>
+        <StackPanel Orientation="Vertical">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="Open" Click="Click_Open" InputGestureText="Alt+O"/>
+                    <MenuItem Header="Save" Click="Click_Save"/>
+                    <MenuItem Header="New Save" Click="Click_New_Save"/>
+                    <Separator/>
+                    <MenuItem Header="Exit" Click="Click_Exit"/>
+                </MenuItem>
 
-            <MenuItem Header="_Edit">
-                <MenuItem Header="Undo"/>
-                <MenuItem Header="Redo"/>
-                <Separator/>
-                <MenuItem Header="Cut"/>
-                <MenuItem Header="Copy"/>
-                <MenuItem Header="Paste"/>
-            </MenuItem>
-        </Menu>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="Undo"/>
+                    <MenuItem Header="Redo"/>
+                    <Separator/>
+                    <MenuItem Header="Cut"/>
+                    <MenuItem Header="Copy"/>
+                    <MenuItem Header="Paste"/>
+                </MenuItem>
+            </Menu>
 
-        <DataGrid >
-            
-        </DataGrid>
+            <DataGrid Height="225" />
+        </StackPanel>
+        <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal"><TextBox Text="输入姓名" Width="80"/>
+                <Separator Width="20" Visibility="Hidden"/>
+                <Button  Width="50" Content="插入" Click="Click_Insert"/>
+                </StackPanel>
+                <Separator Visibility="Hidden"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="输入姓名" Width="80"/>
+                    <Separator Width="20" Visibility="Hidden"/>
+                    <Button  Width="50" Content="查找"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
     </StackPanel>
 
 </Window>

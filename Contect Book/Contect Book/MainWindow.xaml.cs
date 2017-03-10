@@ -16,6 +16,7 @@ using Contect_Book;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Xml;
+using System.ComponentModel;
 
 namespace Contect_Book
 {
@@ -54,6 +55,7 @@ namespace Contect_Book
 			{
 				System.Windows.Forms.MessageBox.Show("Not yet load a Contect Book");
 			}
+			return;
 		}
 
 		private void Click_New_Save(object sender,RoutedEventArgs e)
@@ -73,28 +75,45 @@ namespace Contect_Book
 			{
 				System.Windows.Forms.MessageBox.Show("Not yet load a Contect Book");
 			}
+			return;
 		}
 
 		private void Click_Exit(object sender,RoutedEventArgs e)
 		{
-			Exit_Message_Box temp = new Exit_Message_Box();
-			temp.Activate();
-			temp.Topmost = true;
-			temp.ShowDialog();
-			int temp_State = temp.Get_State();
-			if(temp_State == 1)
-			{
-				this.Click_Save(temp,new RoutedEventArgs());
-				temp.Close();
+			if(doc == null)
 				this.Close();
-			}
-			else if(temp_State == 2)
-			{
-				temp.Close();
-				this.Close();
-			}
 			else
-				temp.Close();
+			{
+				Exit_Message_Box temp = new Exit_Message_Box();
+				temp.Activate();
+				temp.Topmost = true;
+				temp.ShowDialog();
+				int temp_State = temp.Get_State();
+				if(temp_State == 1)
+				{
+					this.Click_Save(temp,new RoutedEventArgs());
+					temp.Close();
+					this.Close();
+				}
+				else if(temp_State == 2)
+				{
+					temp.Close();
+					this.Close();
+				}
+				else
+					temp.Close();
+			}
+			return;
 		}
+
+		private void Click_Insert(object sender,RoutedEventArgs e)
+		{
+
+		}
+	}
+
+	class InsertTestGain: INotifyPropertyChanged
+	{
+		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }
