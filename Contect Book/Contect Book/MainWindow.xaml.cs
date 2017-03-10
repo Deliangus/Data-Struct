@@ -31,6 +31,7 @@ namespace Contect_Book
 		public MainWindow()
 		{
 			InitializeComponent();
+			Contect_Book_View.AutoGenerateColumns = true;
 		}
 		private void Click_Open(object sender,RoutedEventArgs e)
 		{
@@ -39,8 +40,12 @@ namespace Contect_Book
 			if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 			{
 				this.Xmlpath=fbd.FileName;
-				this.doc=new XmlDocument();
-				doc.LoadXml(Xmlpath);
+				if(this.Xmlpath != null)
+				{
+					this.doc = new XmlDocument();
+					doc.LoadXml(Xmlpath);
+					Contect_Book_View.ItemsSource = doc;
+				}
 			}
 		}
 
@@ -49,7 +54,6 @@ namespace Contect_Book
 			if(doc != null)
 			{
 				doc.Save(Xmlpath);
-				Xmlpath = null;
 			}
 			else
 			{
@@ -68,7 +72,6 @@ namespace Contect_Book
 				{
 					this.Xmlpath=fbd.FileName;
 					doc.Save(fbd.FileName);
-					Xmlpath=null;
 				}
 			}
 			else
@@ -108,12 +111,39 @@ namespace Contect_Book
 
 		private void Click_Insert(object sender,RoutedEventArgs e)
 		{
+			string temp = this.Insert_Name.Text;
+			
+		}
 
+		private void Click_Search(object sender,RoutedEventArgs e)
+		{
+			string temp = this.Search_Name.Text;
+
+		}
+
+		private void Click_New(object sender,RoutedEventArgs e)
+		{
+			FolderBrowserDialog fbd = new FolderBrowserDialog();
+			fbd.SelectedPath = System.Environment.CurrentDirectory;
+			if(fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			{
+				this.Xmlpath = fbd.SelectedPath;
+				if(this.Xmlpath != null)
+				{errorlastimeeditted
+					this.doc = new XmlDocument();
+					doc.LoadXml(Xmlpath);
+					Contect_Book_View.ItemsSource = doc;
+				}
+			}
 		}
 	}
 
-	class InsertTestGain: INotifyPropertyChanged
-	{
-		public event PropertyChangedEventHandler PropertyChanged;
-	}
+	//class InsertTestGain: INotifyPropertyChanged
+	//{
+	//	public event PropertyChangedEventHandler PropertyChanged;
+	//	public void NotifyPropertyChanged(string ProName)
+	//	{
+	//		PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(ProName));
+	//	}
+	//}
 }

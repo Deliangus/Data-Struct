@@ -12,6 +12,7 @@
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="Open" Click="Click_Open" InputGestureText="Alt+O"/>
+                    <MenuItem Header="New" InputGestureText="Alt+C" Click="Click_New" Name="Menu_New"/>
                     <MenuItem Header="Save" Click="Click_Save"/>
                     <MenuItem Header="New Save" Click="Click_New_Save"/>
                     <Separator/>
@@ -28,19 +29,20 @@
                 </MenuItem>
             </Menu>
 
-            <DataGrid Height="225" />
+            <DataGrid Height="225" Name="Contect_Book_View" IsReadOnly="False"/>
         </StackPanel>
         <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal"><TextBox Text="输入姓名" Width="80"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Text="输入姓名" Width="80" Name="Insert_Name"/>
                 <Separator Width="20" Visibility="Hidden"/>
                 <Button  Width="50" Content="插入" Click="Click_Insert"/>
                 </StackPanel>
                 <Separator Visibility="Hidden"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Text="输入姓名" Width="80"/>
+                    <TextBox Text="输入姓名" Width="80" Name="Search_Name"/>
                     <Separator Width="20" Visibility="Hidden"/>
-                    <Button  Width="50" Content="查找"/>
+                    <Button  Width="50" Content="查找" Click="Click_Search"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
