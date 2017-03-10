@@ -26,6 +26,7 @@ namespace Contect_Book
 	{
 		public string Xmlpath = null;
 		XmlDocument doc = null;
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -42,16 +43,20 @@ namespace Contect_Book
 			}
 		}
 
-		private void MenuItem_Click(object sender,RoutedEventArgs e)
+		private void Click_Save(object sender,RoutedEventArgs e)
 		{
-			if(doc!=null)
+			if(doc != null)
 			{
 				doc.Save(Xmlpath);
-				Xmlpath=null;
+				Xmlpath = null;
+			}
+			else
+			{
+				System.Windows.Forms.MessageBox.Show("Not yet load a Contect Book");
 			}
 		}
 
-		private void MenuItem_Click_1(object sender,RoutedEventArgs e)
+		private void Click_New_Save(object sender,RoutedEventArgs e)
 		{
 			if(doc!=null)
 			{
@@ -64,6 +69,32 @@ namespace Contect_Book
 					Xmlpath=null;
 				}
 			}
+			else
+			{
+				System.Windows.Forms.MessageBox.Show("Not yet load a Contect Book");
+			}
+		}
+
+		private void Click_Exit(object sender,RoutedEventArgs e)
+		{
+			Exit_Message_Box temp = new Exit_Message_Box();
+			temp.Activate();
+			temp.Topmost = true;
+			temp.ShowDialog();
+			int temp_State = temp.Get_State();
+			if(temp_State == 1)
+			{
+				this.Click_Save(temp,new RoutedEventArgs());
+				temp.Close();
+				this.Close();
+			}
+			else if(temp_State == 2)
+			{
+				temp.Close();
+				this.Close();
+			}
+			else
+				temp.Close();
 		}
 	}
 }
