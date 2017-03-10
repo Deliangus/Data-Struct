@@ -32,9 +32,10 @@
         </StackPanel>
         <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,15,0,0">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal"><TextBox Text="输入姓名" Width="80"/>
-                <Separator Width="20" Visibility="Hidden"/>
-                <Button  Width="50" Content="插入" Click="Click_Insert"/>
+                <StackPanel Orientation="Horizontal">
+                    <TextBox Width="80" Text="{Binding InsertText}"/>
+                    <Separator Width="20" Visibility="Hidden"/>
+                    <Button  Width="50" Content="插入" Click="Click_Insert"/>
                 </StackPanel>
                 <Separator Visibility="Hidden"/>
                 <StackPanel Orientation="Horizontal">

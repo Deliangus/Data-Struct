@@ -31,6 +31,7 @@ namespace Contect_Book
 		public MainWindow()
 		{
 			InitializeComponent();
+			this.DataContext=new InsertTestGain(){InsertText="this is test"};
 		}
 		private void Click_Open(object sender,RoutedEventArgs e)
 		{
@@ -115,5 +116,21 @@ namespace Contect_Book
 	class InsertTestGain: INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
+		private string Inserttext;
+		public string InsertText
+		{
+			get
+			{
+				return Inserttext;
+			}
+			set
+			{
+				if(this.PropertyChanged!=null)
+				{
+					this.PropertyChanged(this,new PropertyChangedEventArgs("InsertText"));
+				}
+				Inserttext=value;
+			}
+		}
 	}
 }
