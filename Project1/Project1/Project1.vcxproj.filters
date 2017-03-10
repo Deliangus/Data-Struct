@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\算法竞赛入门经典">
+      <UniqueIdentifier>{7c4f6073-3280-4d91-b94d-66219740e6dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="快速排序.cpp">
@@ -36,8 +39,11 @@
     <ClCompile Include="完全二叉树.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="例6-10.cpp">
+      <Filter>源文件\算法竞赛入门经典</Filter>
+    </ClCompile>
     <ClCompile Include="源.cpp">
-      <Filter>源文件</Filter>
+      <Filter>源文件\算法竞赛入门经典</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

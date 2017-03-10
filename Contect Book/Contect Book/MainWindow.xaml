@@ -10,10 +10,10 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
                 <MenuItem Header="Open" Click="Click_Open" InputGestureText="Alt+O"/>
-                <MenuItem Header="Save" Click="MenuItem_Click"/>
-                <MenuItem Header="New Save" Click="MenuItem_Click_1"/>
+                <MenuItem Header="Save" Click="Click_Save"/>
+                <MenuItem Header="New Save" Click="Click_New_Save"/>
                 <Separator/>
-                <MenuItem Header="Exit"/>
+                <MenuItem Header="Exit" Click="Click_Exit"/>
             </MenuItem>
 
             <MenuItem Header="_Edit">
