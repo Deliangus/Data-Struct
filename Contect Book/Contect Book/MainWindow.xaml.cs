@@ -17,6 +17,7 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Xml;
 using System.ComponentModel;
+using System.Data.OleDb;
 
 namespace Contect_Book
 {
@@ -36,12 +37,14 @@ namespace Contect_Book
 		private void Click_Open(object sender,RoutedEventArgs e)
 		{
 			OpenFileDialog fbd = new OpenFileDialog();
+			fbd.Filter="*.xml";
 			fbd.InitialDirectory=System.Environment.CurrentDirectory;
 			if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 			{
 				this.Xmlpath=fbd.FileName;
 				if(this.Xmlpath != null)
 				{
+					string TableCon = "provider=microsoft.jet.oledb.4.0;data source="+Xmlpath+";extended properties=excel 8.0";
 					this.doc = new XmlDocument();
 					doc.LoadXml(Xmlpath);
 					Contect_Book_View.ItemsSource = doc;
@@ -67,6 +70,7 @@ namespace Contect_Book
 			if(doc!=null)
 			{
 				OpenFileDialog fbd = new OpenFileDialog();
+				fbd.Filter=".xml";
 				fbd.InitialDirectory=System.Environment.CurrentDirectory;
 				if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 				{
@@ -129,9 +133,13 @@ namespace Contect_Book
 			{
 				this.Xmlpath = fbd.SelectedPath;
 				if(this.Xmlpath != null)
-				{errorlastimeeditted
+				{
 					this.doc = new XmlDocument();
-					doc.LoadXml(Xmlpath);
+					XmlNode Type_Node = doc.CreateXmlDeclaration("1.0","uft-8","");
+					doc.AppendChild(Type_Node);
+					//XmlNode Root_Node = doc.CreateElement("Name");
+					//doc.AppendChild(Root_Node);
+					doc.Save(Xmlpath+)
 					Contect_Book_View.ItemsSource = doc;
 				}
 			}
