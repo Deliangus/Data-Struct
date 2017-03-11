@@ -57,15 +57,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ContectData.cs" />
     <Compile Include="Exit Message Box.xaml.cs">
       <DependentUpon>Exit Message Box.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InsertButton.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="InsertButton.Designer.cs">
-      <DependentUpon>InsertButton.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Xml_Carrier.cs" />
+    <Page Include="Insert_Detail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,6 +75,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ContectCommands.cs" />
+    <Compile Include="Insert_Detail.xaml.cs">
+      <DependentUpon>Insert_Detail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

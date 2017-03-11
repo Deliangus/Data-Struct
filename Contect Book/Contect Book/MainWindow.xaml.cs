@@ -1,60 +1,51 @@
-﻿using System;
+﻿using System.Windows;
+using System.Windows.Forms;
+using System.Xml;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Contect_Book;
-using System.Diagnostics;
-using System.Windows.Forms;
-using System.Xml;
-using System.ComponentModel;
-using System.Data.OleDb;
-using System.IO;
+using SystemControls = System.Windows.Controls;
 namespace Contect_Book
 {
 	/// <summary>
 	/// MainWindow.xaml 的交互逻辑
 	/// </summary>
+
 	public partial class MainWindow: Window
 	{
 		public string Xmlpath = null;
-		XmlDocument doc = null;
+		private XmlDocument doc = null;
+		private int Insert_Veryfycode = 0;
+
 
 		public MainWindow()
 		{
 			InitializeComponent();
-			Contect_Book_View.AutoGenerateColumns = true;
 		}
+
+		#region 菜单Open动作
+		private string NodeTree = "Config/Contector";
 		private void Click_Open(object sender,RoutedEventArgs e)
 		{
 			OpenFileDialog fbd = new OpenFileDialog();
-			fbd.Filter="数据表|.xml";
+			fbd.Filter="数据表|*.xml";
 			fbd.InitialDirectory=System.Environment.CurrentDirectory;
 			if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 			{
 				this.Xmlpath=fbd.FileName;
-				if(this.Xmlpath != null)
+				if(this.Xmlpath!=null)
 				{
-					string TableCon = "provider=microsoft.jet.oledb.4.0;data source="+Xmlpath+";extended properties=excel 8.0";
-					this.doc = new XmlDocument();
+					doc=new XmlDocument();
 					doc.LoadXml(Xmlpath);
-					Contect_Book_View.ItemsSource = doc;
+					Contect_Book_View.ItemsSource=doc;
 				}
 			}
 		}
 
 		private void Click_Save(object sender,RoutedEventArgs e)
 		{
-			if(doc != null)
+			if(doc!=null)
 			{
 				doc.Save(Xmlpath);
 			}
@@ -70,11 +61,11 @@ namespace Contect_Book
 			if(doc!=null)
 			{
 				SaveFileDialog fbd = new SaveFileDialog();
-				fbd.Filter="数据表|.xml";
+				fbd.Filter="数据表|*.xml";
 				fbd.InitialDirectory=System.Environment.CurrentDirectory;
 				if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 				{
-					this.Xmlpath=fbd.FileName;
+					this.Xmlpath=fbd.FileName;;
 					while(File.Exists(Xmlpath))
 					{
 						System.Windows.Forms.MessageBox.Show("A file of same name exisited!");
@@ -93,22 +84,22 @@ namespace Contect_Book
 
 		private void Click_Exit(object sender,RoutedEventArgs e)
 		{
-			if(doc == null)
+			if(doc==null)
 				this.Close();
 			else
 			{
 				Exit_Message_Box temp = new Exit_Message_Box();
 				temp.Activate();
-				temp.Topmost = true;
+				temp.Topmost=true;
 				temp.ShowDialog();
 				int temp_State = temp.Get_State();
-				if(temp_State == 1)
+				if(temp_State==1)
 				{
 					this.Click_Save(temp,new RoutedEventArgs());
 					temp.Close();
 					this.Close();
 				}
-				else if(temp_State == 2)
+				else if(temp_State==2)
 				{
 					temp.Close();
 					this.Close();
@@ -119,23 +110,12 @@ namespace Contect_Book
 			return;
 		}
 
-		private void Click_Insert(object sender,RoutedEventArgs e)
-		{
-			string temp = this.Insert_Name.Text;
-			
-		}
-
-		private void Click_Search(object sender,RoutedEventArgs e)
-		{
-			string temp = this.Search_Name.Text;
-
-		}
-
 		private void Click_New(object sender,RoutedEventArgs e)
 		{
 			SaveFileDialog fbd = new SaveFileDialog();
-			fbd.InitialDirectory = System.Environment.CurrentDirectory;
-			if(fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			fbd.InitialDirectory=System.Environment.CurrentDirectory;
+			fbd.Filter="数据表|*.xml";
+			if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 			{
 				this.Xmlpath=fbd.FileName;
 				while(File.Exists(Xmlpath))
@@ -145,26 +125,144 @@ namespace Contect_Book
 						Xmlpath=fbd.FileName;
 				}
 
-				if(this.Xmlpath != null)
+				if(this.Xmlpath!=null)
 				{
-					this.doc = new XmlDocument();
-					XmlNode Type_Node = doc.CreateXmlDeclaration("1.0","uft-8","");
+					doc=new XmlDocument();
+					XmlNode Type_Node = doc.CreateXmlDeclaration("1.0","utf-8",null);
 					doc.AppendChild(Type_Node);
-					//XmlNode Root_Node = doc.CreateElement("Name");
-					//doc.AppendChild(Root_Node);
+
+					XmlNode Config = doc.CreateNode(XmlNodeType.Element,"Config",string.Empty);
+					XmlElement Contector = doc.CreateElement("Contector");
+					doc.AppendChild(Config);
+					Config.AppendChild(Contector);
 					doc.Save(Xmlpath);
-					Contect_Book_View.ItemsSource = doc;
+					Contect_Book_View.ItemsSource=doc;
 				}
 			}
 		}
-	}
 
-	//class InsertTestGain: INotifyPropertyChanged
-	//{
-	//	public event PropertyChangedEventHandler PropertyChanged;
-	//	public void NotifyPropertyChanged(string ProName)
-	//	{
-	//		PropertyChanged?.Invoke(this,new PropertyChangedEventArgs(ProName));
-	//	}
-	//}
-}
+		#endregion
+
+		#region 插入数据
+		private ContectData Insert_Read = new ContectData();
+
+		private void Click_Insert(object sender,RoutedEventArgs e)
+		{
+			string Name = this.Insert_Name.Text;
+			Insert_Detail Item = new Insert_Detail(Name,Insert_Veryfycode);
+			if(Insert_Read.Get_VerifyCode()==Insert_Veryfycode)
+			{
+				XmlElement Contect_Data = doc.SelectSingleNode(NodeTree+"/"+Name) as XmlElement;
+				if(Contect_Data==null)
+				{
+					XmlNode Contector = doc.SelectSingleNode(NodeTree);
+					Contect_Data=doc.CreateElement(Insert_Read.Get_Name());
+
+					XmlElement Temp;
+					Temp = doc.CreateElement("City");
+					Temp.InnerText=Insert_Read.Get_City();
+					Contect_Data.AppendChild(Temp);
+
+					Temp=doc.CreateElement("Tel");
+					Temp.InnerText=Insert_Read.Get_Tel();
+					Contect_Data.AppendChild(Temp);
+
+					Temp=doc.CreateElement("QQ");
+					Temp.InnerText=Insert_Read.Get_QQ();
+					Contect_Data.AppendChild(Temp);
+
+					Contector.AppendChild(Contect_Data);
+					doc.Save(Xmlpath);
+				}
+			}
+		}
+		#endregion
+
+		//public void Xml_Carrier(string Name,string City,string Tel,string QQ)
+		//{
+		//	XmlElement Root = null, temp = null;
+		//	Root=doc.CreateElement("Name");
+		//	Root.InnerText=Name;
+		//	temp=doc.CreateElement("City");
+		//	temp.InnerText=City;
+		//	Root.AppendChild(temp);
+
+		//	temp=doc.CreateElement("Tel");
+		//	temp.InnerText=Tel;
+		//	Root.AppendChild(temp);
+
+		//	temp=doc.CreateElement("QQ");
+		//	temp.InnerText=QQ;
+		//	Root.AppendChild(temp);
+
+		//	doc.AppendChild(Root);
+		//}
+		#region 搜索数据
+		private void Click_Search(object sender,RoutedEventArgs e)
+		{
+			string temp = this.Search_Name.Text;
+
+		}
+		#endregion
+		private void DataGrid_AutoGeneratingColumn(object sender,SystemControls.DataGridAutoGeneratingColumnEventArgs e)
+		{
+			SystemControls.DataGridTemplateColumn Name = new SystemControls.DataGridTemplateColumn();
+			Name.Header="Name";
+			Name.CellTemplate=(DataTemplate)Resources["NameCellTemplate"];
+			Name.CellEditingTemplate=(DataTemplate)Resources["NameCellEditingTemplate"];
+			Name.SortMemberPath="Name";
+
+			SystemControls.DataGridTemplateColumn City = new SystemControls.DataGridTemplateColumn();
+			City.Header="City";
+			City.CellTemplate=(DataTemplate)Resources["CityCellTemplate"];
+			City.CellEditingTemplate=(DataTemplate)Resources["CityCellEditingTemplate"];
+			City.SortMemberPath="City";
+
+			SystemControls.DataGridTemplateColumn Tel = new SystemControls.DataGridTemplateColumn();
+			Tel.Header="Tel";
+			Tel.CellTemplate=(DataTemplate)Resources["TelCellTemplate"];
+			Tel.CellEditingTemplate=(DataTemplate)Resources["TelCellEditingTemplate"];
+			Tel.SortMemberPath="Tel";
+
+			SystemControls.DataGridTemplateColumn QQ = new SystemControls.DataGridTemplateColumn();
+			QQ.Header="QQ";
+			QQ.CellTemplate=(DataTemplate)Resources["QQCellTemplate"];
+			QQ.CellEditingTemplate=(DataTemplate)Resources["QQCellEditingTemplate"];
+			QQ.SortMemberPath="QQ";
+
+			string temp = e.Column.ToString();
+			if(temp!="Name"||temp!="City"||temp!="Tel"||temp!="QQ")
+				e.Cancel=true;
+		}
+		//private void DataGrid_AutoGeneratingColumn(object sender,SystemControls.DataGridAutoGeneratingColumnEventArgs e)
+		//{
+		//	SystemControls.DataGridTemplateColumn Name = new SystemControls.DataGridTemplateColumn();
+		//	Name.Header="Name";
+		//	Name.CellTemplate=(DataTemplate)Resources["NameCellTemplate"];
+		//	Name.CellEditingTemplate=(DataTemplate)Resources["NameCellEditingTemplate"];
+		//	Name.SortMemberPath="Name";
+
+		//	SystemControls.DataGridTemplateColumn City = new SystemControls.DataGridTemplateColumn();
+		//	City.Header="City";
+		//	City.CellTemplate=(DataTemplate)Resources["CityCellTemplate"];
+		//	City.CellEditingTemplate=(DataTemplate)Resources["CityCellEditingTemplate"];
+		//	City.SortMemberPath="City";
+
+		//	SystemControls.DataGridTemplateColumn Tel = new SystemControls.DataGridTemplateColumn();
+		//	Tel.Header="Tel";
+		//	Tel.CellTemplate=(DataTemplate)Resources["TelCellTemplate"];
+		//	Tel.CellEditingTemplate=(DataTemplate)Resources["TelCellEditingTemplate"];
+		//	Tel.SortMemberPath="Tel";
+
+		//	SystemControls.DataGridTemplateColumn QQ = new SystemControls.DataGridTemplateColumn();
+		//	QQ.Header="QQ";
+		//	QQ.CellTemplate=(DataTemplate)Resources["QQCellTemplate"];
+		//	QQ.CellEditingTemplate=(DataTemplate)Resources["QQCellEditingTemplate"];
+		//	QQ.SortMemberPath="QQ";
+
+		//	string temp = e.Column.ToString();
+		//	if(temp!="Name"||temp!="City"||temp!="Tel"||temp!="QQ")
+		//		e.Cancel=true;
+		//}
+	}
+	}

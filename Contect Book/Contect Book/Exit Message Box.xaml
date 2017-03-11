@@ -5,17 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contect_Book"
         mc:Ignorable="d"
-        Title="Exit" Height="200" Width="400">
+        Title="Exit" Height="200" Width="400" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <Grid>
-        <TextBlock Text="是否保存更改？" FontSize="20" Height="24" Width="200" Margin="96,50,96,95" TextAlignment="Center">
-        </TextBlock>
+        <TextBlock Text="是否保存更改？" FontSize="20" Margin="96,50,96,95" TextAlignment="Center"/>
         <StackPanel Orientation="Horizontal" Height="24" Width="240" Margin="76,95,76,50">
-            <Button Height="22" Width="80" Content="是(Y)" Click="Click_Exit_Yes">
-            </Button>
-            <Button Height="22" Width="80" Content="否(N)" Click="Click_Exit_No">
-            </Button>
-            <Button Height="22" Width="80" Content="取消(C)" Click="Click_Exit_Cancel">
-            </Button>
+            <Button Width="80" Content="是(Y)" Click="Click_Exit_Yes"/>
+            <Button Width="80" Content="否(N)" Click="Click_Exit_No"/>
+            <Button Width="80" Content="取消(C)" Click="Click_Exit_Cancel"/>
         </StackPanel>
     </Grid>
 </Window>
