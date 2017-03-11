@@ -204,6 +204,8 @@ namespace Contect_Book
 
 		}
 		#endregion
+
+		#region 自动生成数据列
 		private void DataGrid_AutoGeneratingColumn(object sender,SystemControls.DataGridAutoGeneratingColumnEventArgs e)
 		{
 			SystemControls.DataGridTemplateColumn Name = new SystemControls.DataGridTemplateColumn();
@@ -234,6 +236,7 @@ namespace Contect_Book
 			if(temp!="Name"||temp!="City"||temp!="Tel"||temp!="QQ")
 				e.Cancel=true;
 		}
+		#endregion
 		//private void DataGrid_AutoGeneratingColumn(object sender,SystemControls.DataGridAutoGeneratingColumnEventArgs e)
 		//{
 		//	SystemControls.DataGridTemplateColumn Name = new SystemControls.DataGridTemplateColumn();
@@ -265,4 +268,4 @@ namespace Contect_Book
 		//		e.Cancel=true;
 		//}
 	}
-	}
+}
