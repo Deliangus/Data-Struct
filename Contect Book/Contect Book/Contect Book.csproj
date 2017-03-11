@@ -37,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,6 +59,12 @@
     </ApplicationDefinition>
     <Compile Include="Exit Message Box.xaml.cs">
       <DependentUpon>Exit Message Box.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InsertButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="InsertButton.Designer.cs">
+      <DependentUpon>InsertButton.cs</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
