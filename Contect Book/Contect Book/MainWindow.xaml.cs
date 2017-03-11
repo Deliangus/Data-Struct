@@ -18,7 +18,7 @@ using System.Windows.Forms;
 using System.Xml;
 using System.ComponentModel;
 using System.Data.OleDb;
-
+using System.IO;
 namespace Contect_Book
 {
 	/// <summary>
@@ -37,7 +37,7 @@ namespace Contect_Book
 		private void Click_Open(object sender,RoutedEventArgs e)
 		{
 			OpenFileDialog fbd = new OpenFileDialog();
-			fbd.Filter="*.xml";
+			fbd.Filter="数据表|.xml";
 			fbd.InitialDirectory=System.Environment.CurrentDirectory;
 			if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 			{
@@ -69,12 +69,18 @@ namespace Contect_Book
 		{
 			if(doc!=null)
 			{
-				OpenFileDialog fbd = new OpenFileDialog();
-				fbd.Filter=".xml";
+				SaveFileDialog fbd = new SaveFileDialog();
+				fbd.Filter="数据表|.xml";
 				fbd.InitialDirectory=System.Environment.CurrentDirectory;
 				if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 				{
 					this.Xmlpath=fbd.FileName;
+					while(File.Exists(Xmlpath))
+					{
+						System.Windows.Forms.MessageBox.Show("A file of same name exisited!");
+						if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+							Xmlpath=fbd.FileName;
+					}
 					doc.Save(fbd.FileName);
 				}
 			}
@@ -127,11 +133,18 @@ namespace Contect_Book
 
 		private void Click_New(object sender,RoutedEventArgs e)
 		{
-			FolderBrowserDialog fbd = new FolderBrowserDialog();
-			fbd.SelectedPath = System.Environment.CurrentDirectory;
+			SaveFileDialog fbd = new SaveFileDialog();
+			fbd.InitialDirectory = System.Environment.CurrentDirectory;
 			if(fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
-				this.Xmlpath = fbd.SelectedPath;
+				this.Xmlpath=fbd.FileName;
+				while(File.Exists(Xmlpath))
+				{
+					System.Windows.Forms.MessageBox.Show("A file of same name exisited!");
+					if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+						Xmlpath=fbd.FileName;
+				}
+
 				if(this.Xmlpath != null)
 				{
 					this.doc = new XmlDocument();
@@ -139,7 +152,7 @@ namespace Contect_Book
 					doc.AppendChild(Type_Node);
 					//XmlNode Root_Node = doc.CreateElement("Name");
 					//doc.AppendChild(Root_Node);
-					doc.Save(Xmlpath+)
+					doc.Save(Xmlpath);
 					Contect_Book_View.ItemsSource = doc;
 				}
 			}
