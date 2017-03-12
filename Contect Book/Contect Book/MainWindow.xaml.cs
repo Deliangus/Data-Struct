@@ -19,7 +19,7 @@ namespace Contect_Book
 		public string Xmlpath = null;
 		private XmlDocument doc = null;
 		private int Insert_Veryfycode = 0;
-
+		private XmlNode Xml_List = null;
 
 		public MainWindow()
 		{
@@ -28,6 +28,17 @@ namespace Contect_Book
 
 		#region DataGrid数据绑定
 
+		private void KeyDown_Reload(object sender,System.Windows.Input.KeyEventArgs e)
+		{
+			if(doc!=null)
+				this.Contect_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+		}
+
+		private void MouseDown_Reload(object sender,System.Windows.Input.MouseButtonEventArgs e)
+		{
+			if(doc!=null)
+				this.Contect_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+		}
 		#endregion
 
 		#region 菜单Open动作
@@ -45,8 +56,7 @@ namespace Contect_Book
 					doc=new XmlDocument();
 					
 					doc.Load(Xmlpath);
-					XmlNode list = doc.SelectSingleNode(NodeTree);
-					this.Contect_Book_View.ItemsSource=list.ChildNodes;
+					this.Contect_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
 				}
 			}
 		}
@@ -188,31 +198,34 @@ namespace Contect_Book
 
 					Contector.AppendChild(Contect_Data);
 					doc.Save(Xmlpath);
+
+					this.Contect_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
 					Contect_Book_View.UpdateLayout();
+					this.Insert_Name.Text = "输入姓名";
 				}
 			}
 		}
 
 
-		private void Insert_Name_GotFocus(object sender,RoutedEventArgs e)
-		{
-			Insert_Name.Text = "";
-		}
+		//private void Insert_Name_GotFocus(object sender,RoutedEventArgs e)
+		//{
+		//	Insert_Name.Text = "";
+		//}
 
-		private void Insert_Name_LostFocus(object sender,RoutedEventArgs e)
-		{
-			Insert_Name.Text = "输入名字";
-		}
+		//private void Insert_Name_LostFocus(object sender,RoutedEventArgs e)
+		//{
+		//	Insert_Name.Text = "输入名字";
+		//}
 
-		private void Search_Name_GotFocus(object sender,RoutedEventArgs e)
-		{
-			Search_Name.Text = "";
-		}
+		//private void Search_Name_GotFocus(object sender,RoutedEventArgs e)
+		//{
+		//	Search_Name.Text = "";
+		//}
 
-		private void Search_Name_LostFocus(object sender,RoutedEventArgs e)
-		{
-			Search_Name.Text = "输入名字";
-		}
+		//private void Search_Name_LostFocus(object sender,RoutedEventArgs e)
+		//{
+		//	Search_Name.Text = "输入名字";
+		//}
 
 		#endregion
 
@@ -241,6 +254,9 @@ namespace Contect_Book
 			string temp = this.Search_Name.Text;
 
 		}
+
+
+
 		#endregion
 
 		//#region 自动生成数据列

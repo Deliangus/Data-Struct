@@ -34,25 +34,25 @@
             IsReadOnly="False"
             VerticalContentAlignment="Stretch"
             Margin="0,17,0,108"
-            AutoGenerateColumns="False"
+            AutoGenerateColumns="False" KeyDown="KeyDown_Reload" MouseDown="MouseDown_Reload"
             >
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="Column_Name" Width="100" IsReadOnly="False" Binding="{Binding XPath=Name,Mode=TwoWay}" Header="Name"/>
-                <DataGridTextColumn x:Name="Column_City" Width="100" IsReadOnly="False" Binding="{Binding XPath=City,Mode=TwoWay}" Header="City"/>
-                <DataGridTextColumn x:Name="Column_Tel" Width="100" IsReadOnly="False" Binding="{Binding XPath=Tel,Mode=TwoWay}" Header="Tel"/>
-                <DataGridTextColumn x:Name="Column_QQ" Width="100" IsReadOnly="False" Binding="{Binding XPath=QQ,Mode=TwoWay}" Header="QQ"/>
+                <DataGridTextColumn x:Name="Column_Name" Width="100" IsReadOnly="False" Binding="{Binding XPath=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="Name"/>
+                <DataGridTextColumn x:Name="Column_City" Width="100" IsReadOnly="False" Binding="{Binding XPath=City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="City"/>
+                <DataGridTextColumn x:Name="Column_Tel" Width="100" IsReadOnly="False" Binding="{Binding XPath=Tel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="Tel"/>
+                <DataGridTextColumn x:Name="Column_QQ" Width="100" IsReadOnly="False" Binding="{Binding XPath=QQ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="QQ"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Margin="0" Height="108" VerticalAlignment="Bottom">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Text="输入姓名" Width="80" Name="Insert_Name" GotFocus="Insert_Name_GotFocus" LostFocus="Insert_Name_LostFocus"/>
+                    <TextBox Text="输入姓名" Width="80" Name="Insert_Name"/>
                     <Separator Width="20" Visibility="Hidden"/>
                     <Button  Width="50" Content="插入" Click="Click_Insert"/>
                 </StackPanel>
                 <Separator Visibility="Hidden"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Text="输入姓名" Width="80" Name="Search_Name" LostFocus="Search_Name_LostFocus" GotFocus="Search_Name_GotFocus"/>
+                    <TextBox Text="输入姓名" Width="80" Name="Search_Name"/>
                     <Separator Width="20" Visibility="Hidden"/>
                     <Button  Width="50" Content="查找" Click="Click_Search"/>
                 </StackPanel>
