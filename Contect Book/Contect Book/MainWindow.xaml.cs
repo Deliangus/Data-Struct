@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SystemControls = System.Windows.Controls;
+using System.Resources;
+
 namespace Contect_Book
 {
 	/// <summary>
@@ -24,6 +26,10 @@ namespace Contect_Book
 			InitializeComponent();
 		}
 
+		#region DataGrid数据绑定
+
+		#endregion
+
 		#region 菜单Open动作
 		private string NodeTree = "Config/Contector";
 		private void Click_Open(object sender,RoutedEventArgs e)
@@ -37,8 +43,9 @@ namespace Contect_Book
 				if(this.Xmlpath!=null)
 				{
 					doc=new XmlDocument();
-					doc.LoadXml(Xmlpath);
+					doc.Load(Xmlpath);
 					Contect_Book_View.ItemsSource=doc;
+
 				}
 			}
 		}
@@ -156,7 +163,8 @@ namespace Contect_Book
 				if(Contect_Data==null)
 				{
 					XmlNode Contector = doc.SelectSingleNode(NodeTree);
-					Contect_Data=doc.CreateElement(Insert_Read.Get_Name());
+					Contect_Data=doc.CreateElement("Name");
+					Contect_Data.InnerText = Insert_Read.Get_Name();
 
 					XmlElement Temp;
 					Temp = doc.CreateElement("City");
@@ -176,6 +184,28 @@ namespace Contect_Book
 				}
 			}
 		}
+
+
+		private void Insert_Name_GotFocus(object sender,RoutedEventArgs e)
+		{
+			Insert_Name.Text = "";
+		}
+
+		private void Insert_Name_LostFocus(object sender,RoutedEventArgs e)
+		{
+			Insert_Name.Text = "输入名字";
+		}
+
+		private void Search_Name_GotFocus(object sender,RoutedEventArgs e)
+		{
+			Search_Name.Text = "";
+		}
+
+		private void Search_Name_LostFocus(object sender,RoutedEventArgs e)
+		{
+			Search_Name.Text = "输入名字";
+		}
+
 		#endregion
 
 		//public void Xml_Carrier(string Name,string City,string Tel,string QQ)
@@ -205,38 +235,7 @@ namespace Contect_Book
 		}
 		#endregion
 
-		#region 自动生成数据列
-		private void DataGrid_AutoGeneratingColumn(object sender,SystemControls.DataGridAutoGeneratingColumnEventArgs e)
-		{
-			SystemControls.DataGridTemplateColumn Name = new SystemControls.DataGridTemplateColumn();
-			Name.Header="Name";
-			Name.CellTemplate=(DataTemplate)Resources["NameCellTemplate"];
-			Name.CellEditingTemplate=(DataTemplate)Resources["NameCellEditingTemplate"];
-			Name.SortMemberPath="Name";
-
-			SystemControls.DataGridTemplateColumn City = new SystemControls.DataGridTemplateColumn();
-			City.Header="City";
-			City.CellTemplate=(DataTemplate)Resources["CityCellTemplate"];
-			City.CellEditingTemplate=(DataTemplate)Resources["CityCellEditingTemplate"];
-			City.SortMemberPath="City";
-
-			SystemControls.DataGridTemplateColumn Tel = new SystemControls.DataGridTemplateColumn();
-			Tel.Header="Tel";
-			Tel.CellTemplate=(DataTemplate)Resources["TelCellTemplate"];
-			Tel.CellEditingTemplate=(DataTemplate)Resources["TelCellEditingTemplate"];
-			Tel.SortMemberPath="Tel";
-
-			SystemControls.DataGridTemplateColumn QQ = new SystemControls.DataGridTemplateColumn();
-			QQ.Header="QQ";
-			QQ.CellTemplate=(DataTemplate)Resources["QQCellTemplate"];
-			QQ.CellEditingTemplate=(DataTemplate)Resources["QQCellEditingTemplate"];
-			QQ.SortMemberPath="QQ";
-
-			string temp = e.Column.ToString();
-			if(temp!="Name"||temp!="City"||temp!="Tel"||temp!="QQ")
-				e.Cancel=true;
-		}
-		#endregion
+		//#region 自动生成数据列
 		//private void DataGrid_AutoGeneratingColumn(object sender,SystemControls.DataGridAutoGeneratingColumnEventArgs e)
 		//{
 		//	SystemControls.DataGridTemplateColumn Name = new SystemControls.DataGridTemplateColumn();
@@ -267,5 +266,7 @@ namespace Contect_Book
 		//	if(temp!="Name"||temp!="City"||temp!="Tel"||temp!="QQ")
 		//		e.Cancel=true;
 		//}
+
+		//#endregion
 	}
 }
