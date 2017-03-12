@@ -172,7 +172,7 @@ namespace Contect_Book
 				if(Contect_Data==null)
 				{
 					XmlNode Contector = doc.SelectSingleNode(NodeTree);
-					Contect_Data=doc.CreateElement("Condoctor");
+					Contect_Data=doc.CreateElement(Insert_Read.Get_Name());
 					//Contect_Data.SetAttribute("QQ",Insert_Read.Get_QQ());
 					//Contect_Data.SetAttribute("Tel",Insert_Read.Get_Tel());
 					//Contect_Data.SetAttribute("City",Insert_Read.Get_City());
@@ -252,7 +252,16 @@ namespace Contect_Book
 		private void Click_Search(object sender,RoutedEventArgs e)
 		{
 			string temp = this.Search_Name.Text;
-
+			if(doc!=null)
+			{
+				XmlElement Search_Result = doc.SelectSingleNode(NodeTree+"/"+temp) as XmlElement;
+				if(Search_Result==null)
+					System.Windows.MessageBox.Show(temp+"未找到");
+				else
+				{
+					//Contect_Book_View.select
+				}
+			}
 		}
 
 
