@@ -61,7 +61,6 @@
     <Compile Include="Exit Message Box.xaml.cs">
       <DependentUpon>Exit Message Box.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Xml_Carrier.cs" />
     <Page Include="Insert_Detail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

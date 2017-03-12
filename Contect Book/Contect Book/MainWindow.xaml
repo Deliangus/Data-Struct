@@ -37,10 +37,10 @@
             AutoGenerateColumns="False"
             >
             <DataGrid.Columns>
-                <DataGridTextColumn x:Name="Column_Name" Binding="{Binding Path=Attribute[Name].Value,Mode=OneWay}" Header="Name"/>
-                <DataGridTextColumn x:Name="Column_City" Binding="{Binding City,Mode=OneWay}" Header="City"/>
-                <DataGridTextColumn x:Name="Column_Tel" Binding="{Binding Tel,Mode=OneWay}" Header="Tel"/>
-                <DataGridTextColumn x:Name="Column_QQ" Binding="{Binding QQ,Mode=OneWay}" Header="QQ"/>
+                <DataGridTextColumn x:Name="Column_Name" Width="100" IsReadOnly="False" Binding="{Binding XPath=Name,Mode=TwoWay}" Header="Name"/>
+                <DataGridTextColumn x:Name="Column_City" Width="100" IsReadOnly="False" Binding="{Binding XPath=City,Mode=TwoWay}" Header="City"/>
+                <DataGridTextColumn x:Name="Column_Tel" Width="100" IsReadOnly="False" Binding="{Binding XPath=Tel,Mode=TwoWay}" Header="Tel"/>
+                <DataGridTextColumn x:Name="Column_QQ" Width="100" IsReadOnly="False" Binding="{Binding XPath=QQ,Mode=TwoWay}" Header="QQ"/>
             </DataGrid.Columns>
         </DataGrid>
         <Grid Margin="0" Height="108" VerticalAlignment="Bottom">

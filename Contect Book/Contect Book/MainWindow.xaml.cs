@@ -31,7 +31,7 @@ namespace Contect_Book
 		#endregion
 
 		#region 菜单Open动作
-		private string NodeTree = "Config/Contector";
+		private string NodeTree = "Config";
 		private void Click_Open(object sender,RoutedEventArgs e)
 		{
 			OpenFileDialog fbd = new OpenFileDialog();
@@ -43,9 +43,10 @@ namespace Contect_Book
 				if(this.Xmlpath!=null)
 				{
 					doc=new XmlDocument();
+					
 					doc.Load(Xmlpath);
-					Contect_Book_View.ItemsSource=doc;
-
+					XmlNode list = doc.SelectSingleNode(NodeTree);
+					this.Contect_Book_View.ItemsSource=list.ChildNodes;
 				}
 			}
 		}
@@ -139,11 +140,9 @@ namespace Contect_Book
 					doc.AppendChild(Type_Node);
 
 					XmlNode Config = doc.CreateNode(XmlNodeType.Element,"Config",string.Empty);
-					XmlElement Contector = doc.CreateElement("Contector");
 					doc.AppendChild(Config);
-					Config.AppendChild(Contector);
 					doc.Save(Xmlpath);
-					Contect_Book_View.ItemsSource=doc;
+					Contect_Book_View.ItemsSource=doc.GetElementsByTagName("Contector");
 				}
 			}
 		}
@@ -163,11 +162,19 @@ namespace Contect_Book
 				if(Contect_Data==null)
 				{
 					XmlNode Contector = doc.SelectSingleNode(NodeTree);
-					Contect_Data=doc.CreateElement("Name");
-					Contect_Data.InnerText = Insert_Read.Get_Name();
+					Contect_Data=doc.CreateElement("Condoctor");
+					//Contect_Data.SetAttribute("QQ",Insert_Read.Get_QQ());
+					//Contect_Data.SetAttribute("Tel",Insert_Read.Get_Tel());
+					//Contect_Data.SetAttribute("City",Insert_Read.Get_City());
+					//Contect_Data.SetAttribute("Name",Insert_Read.Get_Name());		
 
 					XmlElement Temp;
-					Temp = doc.CreateElement("City");
+
+					Temp=doc.CreateElement("Name");
+					Temp.InnerText=Insert_Read.Get_Name();
+					Contect_Data.AppendChild(Temp);
+
+					Temp=doc.CreateElement("City");
 					Temp.InnerText=Insert_Read.Get_City();
 					Contect_Data.AppendChild(Temp);
 
@@ -181,6 +188,7 @@ namespace Contect_Book
 
 					Contector.AppendChild(Contect_Data);
 					doc.Save(Xmlpath);
+					Contect_Book_View.UpdateLayout();
 				}
 			}
 		}
