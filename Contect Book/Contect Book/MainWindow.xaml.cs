@@ -264,7 +264,12 @@ namespace Contect_Book
 					System.Windows.MessageBox.Show(temp+"未找到");
 				else
 				{
-					//Contect_Book_View.select
+					Searched_Detail Search_Info = new Searched_Detail(Search_Result,this.doc);
+					doc.Save(Xmlpath);
+					this.Contect_Book_View.ItemsSource = doc.SelectSingleNode(NodeTree).ChildNodes;
+					Contect_Book_View.UpdateLayout();
+
+					Search_Name.Text = "输入姓名";
 				}
 			}
 		}

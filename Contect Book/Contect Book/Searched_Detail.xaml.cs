@@ -24,10 +24,14 @@ namespace Contect_Book
 		private XmlElement City;
 		private XmlElement Tel;
 		private XmlElement QQ;
+		XmlNode Carrier_Node;
+		XmlDocument Carrier_Doc;
 
-		public Searched_Detail(XmlNode Contector)
+		public Searched_Detail(XmlNode Contector,XmlDocument doc)
 		{
-			XmlNode Carrier = Contector;
+			Carrier_Node = Contector;
+			Carrier_Doc = doc;
+
 			Name = Contector.FirstChild as XmlElement;
 			TextBox_Name.Text = Name.InnerText;
 
@@ -44,12 +48,18 @@ namespace Contect_Book
 
 		private void Button_Search_Detail_Save_Click(object sender,RoutedEventArgs e)
 		{
+			Name.InnerText = TextBox_Name.Text;
+			City.InnerText = TextBox_City.Text;
+			Tel.InnerText = TextBox_Tel.Text;
+			QQ.InnerText = TextBox_QQ.Text;
 
+			this.Close();
 		}
 
 		private void Button_Search_Detail_Delete_Click(object sender,RoutedEventArgs e)
 		{
-
+			Carrier_Doc.RemoveChild(Carrier_Node);
+			this.Close();
 		}
 	}
 }
