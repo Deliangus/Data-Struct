@@ -18,9 +18,9 @@ namespace Contect_Book
 	{
 		public string Xmlpath = null;
 		private XmlDocument doc = null;
-		private int Insert_Veryfycode = 0;
+		private int Insert_Verifycode = 0;
 		private XmlNode Xml_List = null;
-
+		System.Random VerifyCode_Generator = new System.Random(new System.DateTime().Millisecond%1000);
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -165,14 +165,17 @@ namespace Contect_Book
 		private void Click_Insert(object sender,RoutedEventArgs e)
 		{
 			string Name = this.Insert_Name.Text;
-			Insert_Detail Item = new Insert_Detail(Name,Insert_Veryfycode);
-			if(Insert_Read.Get_VerifyCode()==Insert_Veryfycode)
+			XmlElement Contect_Data = doc.SelectSingleNode(NodeTree + "/" + Name) as XmlElement;
+			Insert_Verifycode = VerifyCode_Generator.Next();
+			if(Contect_Data == null)
 			{
-				XmlElement Contect_Data = doc.SelectSingleNode(NodeTree+"/"+Name) as XmlElement;
-				if(Contect_Data==null)
+				Insert_Detail Item = new Insert_Detail(Name,Insert_Verifycode);
+
+				if(Insert_Read.Get_VerifyCode() == Insert_Verifycode)
 				{
+
 					XmlNode Contector = doc.SelectSingleNode(NodeTree);
-					Contect_Data=doc.CreateElement(Insert_Read.Get_Name());
+					Contect_Data = doc.CreateElement(Insert_Read.Get_Name());
 					//Contect_Data.SetAttribute("QQ",Insert_Read.Get_QQ());
 					//Contect_Data.SetAttribute("Tel",Insert_Read.Get_Tel());
 					//Contect_Data.SetAttribute("City",Insert_Read.Get_City());
@@ -180,30 +183,32 @@ namespace Contect_Book
 
 					XmlElement Temp;
 
-					Temp=doc.CreateElement("Name");
-					Temp.InnerText=Insert_Read.Get_Name();
+					Temp = doc.CreateElement("Name");
+					Temp.InnerText = Insert_Read.Get_Name();
 					Contect_Data.AppendChild(Temp);
 
-					Temp=doc.CreateElement("City");
-					Temp.InnerText=Insert_Read.Get_City();
+					Temp = doc.CreateElement("City");
+					Temp.InnerText = Insert_Read.Get_City();
 					Contect_Data.AppendChild(Temp);
 
-					Temp=doc.CreateElement("Tel");
-					Temp.InnerText=Insert_Read.Get_Tel();
+					Temp = doc.CreateElement("Tel");
+					Temp.InnerText = Insert_Read.Get_Tel();
 					Contect_Data.AppendChild(Temp);
 
-					Temp=doc.CreateElement("QQ");
-					Temp.InnerText=Insert_Read.Get_QQ();
+					Temp = doc.CreateElement("QQ");
+					Temp.InnerText = Insert_Read.Get_QQ();
 					Contect_Data.AppendChild(Temp);
 
 					Contector.AppendChild(Contect_Data);
 					doc.Save(Xmlpath);
 
-					this.Contect_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+					this.Contect_Book_View.ItemsSource = doc.SelectSingleNode(NodeTree).ChildNodes;
 					Contect_Book_View.UpdateLayout();
 					this.Insert_Name.Text = "输入姓名";
 				}
 			}
+			else
+				System.Windows.MessageBox.Show(Name + " is already existed!");
 		}
 
 

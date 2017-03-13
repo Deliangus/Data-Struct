@@ -53,5 +53,12 @@ namespace Contect_Book
 			if(e.Key>=Key.D0&&e.Key<=Key.D9)
 				e.Handled=true;
 		}
+
+		private void Button_Insert_Detail_Cancel_Click(object sender,RoutedEventArgs e)
+		{
+			ContectData temp = new ContectData();
+			temp.Write_VerifyCode(Insert_VerifyCode+1);
+			this.Close();
+		}
 	}
 }

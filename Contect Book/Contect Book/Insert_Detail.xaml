@@ -26,7 +26,7 @@
             <Separator Visibility="Hidden" Height="20"/>
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="Button_Insert_Detail_OK" Content="OK" Height="23" Width="75" Click="Button_Insert_Detail_OK_Click"/>
-                <Button x:Name="Button_Insert_Detail_Cancel" Content="Cancel" Width="75"/>
+                <Button x:Name="Button_Insert_Detail_Cancel" Content="Cancel" Width="75" Click="Button_Insert_Detail_Cancel_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>
