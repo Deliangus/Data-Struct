@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contect_Book"
         mc:Ignorable="d"
-        Title="Contect Book" Height="350" Width="525"
+        Title="Contect Book" Height="350" Width="525" MinWidth="525" MinHeight="350"
+        
         >
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Top">
@@ -46,13 +47,13 @@
         <Grid Margin="0" Height="108" VerticalAlignment="Bottom">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Text="输入姓名" Width="80" Name="Insert_Name"/>
+                    <TextBox Text="输入姓名" Width="80" Name="Insert_Name" GotFocus="Insert_Name_GotFocus" LostFocus="Insert_Name_LostFocus"/>
                     <Separator Width="20" Visibility="Hidden"/>
                     <Button  Width="50" Content="插入" Click="Click_Insert"/>
                 </StackPanel>
                 <Separator Visibility="Hidden"/>
                 <StackPanel Orientation="Horizontal">
-                    <TextBox Text="输入姓名" Width="80" Name="Search_Name"/>
+                    <TextBox Text="输入姓名" Width="80" x:Name="Search_Name" GotFocus="Search_Name_GotFocus" LostFocus="Search_Name_LostFocus"/>
                     <Separator Width="20" Visibility="Hidden"/>
                     <Button  Width="50" Content="查找" Click="Click_Search"/>
                 </StackPanel>

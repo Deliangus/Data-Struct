@@ -42,18 +42,56 @@ namespace Contect_Book
 			this.Close();
 		}
 
-		private void KeyDown_Tel(object sender,System.Windows.Input.KeyEventArgs e)
-		{
-			if(e.Key>=Key.D0&&e.Key<=Key.D9)
-				e.Handled=true;
-		}
+		//private void KeyDown_Tel(object sender,System.Windows.Input.KeyEventArgs e)
+		//{
+		//	if(e.Key>=Key.D0&&e.Key<=Key.D9)
+		//		e.Handled=true;
+		//}
 
-		private void KeyDown_QQ(object sender,System.Windows.Input.KeyEventArgs e)
-		{
-			if(e.Key>=Key.D0&&e.Key<=Key.D9)
-				e.Handled=true;
-		}
+		//private void KeyDown_QQ(object sender,System.Windows.Input.KeyEventArgs e)
+		//{
+		//	if(e.Key>=Key.D0&&e.Key<=Key.D9)
+		//		e.Handled=true;
+		//}
+		private void TextBox_Tel_Pasting(object sender,DataObjectPastingEventArgs e)
+	        {
+	            if (e.DataObject.GetDataPresent(typeof(String)))
+	            {
+	                String text = (String)e.DataObject.GetData(typeof(String));
+	                if (!isNumberic(text))
+	                { e.CancelCommand(); }
+	            }
+	            else { e.CancelCommand(); }
+	        }
 
+	        private void TextBox_Tel_PreviewKeyDown(object sender,System.Windows.Input.KeyEventArgs e)
+	        {
+	            if (e.Key == Key.Space)
+	                e.Handled = true;
+	        }
+ 
+	        private void TextBox_Tel_PreviewTextInput(object sender,TextCompositionEventArgs e)
+	        {
+	            if (!isNumberic(e.Text))
+	            {
+	                e.Handled = true;
+	            }
+	            else
+	                e.Handled = false;
+	        }
+	        //isDigit是否是数字
+	        public static bool isNumberic(string _string)
+	        {
+	            if (string.IsNullOrEmpty(_string))
+	                return false;
+	            foreach (char c in _string)
+	            {
+	                if (!char.IsDigit(c))
+	                    //if(c<'0' c="">'9')//最好的方法,在下面测试数据中再加一个0，然后这种方法效率会搞10毫秒左右
+	                    return false;
+	            }
+	            return true;
+	        }
 		private void Button_Insert_Detail_Cancel_Click(object sender,RoutedEventArgs e)
 		{
 			ContectData temp = new ContectData();

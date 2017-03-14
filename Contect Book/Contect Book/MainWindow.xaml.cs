@@ -19,7 +19,6 @@ namespace Contect_Book
 		public string Xmlpath = null;
 		private XmlDocument doc = null;
 		private int Insert_Verifycode = 0;
-		private XmlNode Xml_List = null;
 		System.Random VerifyCode_Generator = new System.Random(new System.DateTime().Millisecond%1000);
 		public MainWindow()
 		{
@@ -42,7 +41,7 @@ namespace Contect_Book
 		#endregion
 
 		#region 菜单Open动作
-		private string NodeTree = "Config";
+		private string NodeTree = "Config";//Config/?
 		private void Click_Open(object sender,RoutedEventArgs e)
 		{
 			OpenFileDialog fbd = new OpenFileDialog();
@@ -164,73 +163,83 @@ namespace Contect_Book
 
 		private void Click_Insert(object sender,RoutedEventArgs e)
 		{
-			string Name = this.Insert_Name.Text;
-			XmlElement Contect_Data = doc.SelectSingleNode(NodeTree + "/" + Name) as XmlElement;
-			Insert_Verifycode = VerifyCode_Generator.Next();
-			if(Contect_Data == null)
-			{
-				Insert_Detail Item = new Insert_Detail(Name,Insert_Verifycode);
-
-				if(Insert_Read.Get_VerifyCode() == Insert_Verifycode)
-				{
-
-					XmlNode Contector = doc.SelectSingleNode(NodeTree);
-					Contect_Data = doc.CreateElement(Insert_Read.Get_Name());
-					//Contect_Data.SetAttribute("QQ",Insert_Read.Get_QQ());
-					//Contect_Data.SetAttribute("Tel",Insert_Read.Get_Tel());
-					//Contect_Data.SetAttribute("City",Insert_Read.Get_City());
-					//Contect_Data.SetAttribute("Name",Insert_Read.Get_Name());		
-
-					XmlElement Temp;
-
-					Temp = doc.CreateElement("Name");
-					Temp.InnerText = Insert_Read.Get_Name();
-					Contect_Data.AppendChild(Temp);
-
-					Temp = doc.CreateElement("City");
-					Temp.InnerText = Insert_Read.Get_City();
-					Contect_Data.AppendChild(Temp);
-
-					Temp = doc.CreateElement("Tel");
-					Temp.InnerText = Insert_Read.Get_Tel();
-					Contect_Data.AppendChild(Temp);
-
-					Temp = doc.CreateElement("QQ");
-					Temp.InnerText = Insert_Read.Get_QQ();
-					Contect_Data.AppendChild(Temp);
-
-					Contector.AppendChild(Contect_Data);
-					doc.Save(Xmlpath);
-
-					this.Contect_Book_View.ItemsSource = doc.SelectSingleNode(NodeTree).ChildNodes;
-					Contect_Book_View.UpdateLayout();
-					this.Insert_Name.Text = "输入姓名";
-				}
-			}
+			if(this.Insert_Name.Text.Equals(string.Empty))
+				System.Windows.MessageBox.Show("Empty Name Inserted!");
+			else if(doc==null)
+				System.Windows.MessageBox.Show("No Contect Book Loaded!");
 			else
-				System.Windows.MessageBox.Show(Name + " is already existed!");
+			{
+				string Name = this.Insert_Name.Text;
+				XmlElement Contect_Data = doc.SelectSingleNode(NodeTree+"/"+Name) as XmlElement;
+				Insert_Verifycode=VerifyCode_Generator.Next();
+				if(Contect_Data==null)
+				{
+					Insert_Detail Item = new Insert_Detail(Name,Insert_Verifycode);
+
+					if(Insert_Read.Get_VerifyCode()==Insert_Verifycode)
+					{
+
+						XmlNode Contector = doc.SelectSingleNode(NodeTree);
+						Contect_Data=doc.CreateElement(Insert_Read.Get_Name());
+						//Contect_Data.SetAttribute("QQ",Insert_Read.Get_QQ());
+						//Contect_Data.SetAttribute("Tel",Insert_Read.Get_Tel());
+						//Contect_Data.SetAttribute("City",Insert_Read.Get_City());
+						//Contect_Data.SetAttribute("Name",Insert_Read.Get_Name());		
+
+						XmlElement Temp;
+
+						Temp=doc.CreateElement("Name");
+						Temp.InnerText=Insert_Read.Get_Name();
+						Contect_Data.AppendChild(Temp);
+
+						Temp=doc.CreateElement("City");
+						Temp.InnerText=Insert_Read.Get_City();
+						Contect_Data.AppendChild(Temp);
+
+						Temp=doc.CreateElement("Tel");
+						Temp.InnerText=Insert_Read.Get_Tel();
+						Contect_Data.AppendChild(Temp);
+
+						Temp=doc.CreateElement("QQ");
+						Temp.InnerText=Insert_Read.Get_QQ();
+						Contect_Data.AppendChild(Temp);
+
+						Contector.AppendChild(Contect_Data);
+						doc.Save(Xmlpath);
+
+						this.Contect_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+						Contect_Book_View.UpdateLayout();
+						this.Insert_Name.Text="输入姓名";
+
+					}
+				}
+				else
+					System.Windows.MessageBox.Show(Name+" is already existed!");
+			}
 		}
 
 
-		//private void Insert_Name_GotFocus(object sender,RoutedEventArgs e)
-		//{
-		//	Insert_Name.Text = "";
-		//}
+		private void Insert_Name_GotFocus(object sender,RoutedEventArgs e)
+		{
+			Insert_Name.Text="";
+		}
 
-		//private void Insert_Name_LostFocus(object sender,RoutedEventArgs e)
-		//{
-		//	Insert_Name.Text = "输入名字";
-		//}
+		private void Insert_Name_LostFocus(object sender,RoutedEventArgs e)
+		{
+			if(Insert_Name.Text.Equals(string.Empty))
+				Insert_Name.Text="输入名字";
+		}
 
-		//private void Search_Name_GotFocus(object sender,RoutedEventArgs e)
-		//{
-		//	Search_Name.Text = "";
-		//}
+		private void Search_Name_GotFocus(object sender,RoutedEventArgs e)
+		{
+			Search_Name.Text="";
+		}
 
-		//private void Search_Name_LostFocus(object sender,RoutedEventArgs e)
-		//{
-		//	Search_Name.Text = "输入名字";
-		//}
+		private void Search_Name_LostFocus(object sender,RoutedEventArgs e)
+		{
+			if(Search_Name.Text.Equals(string.Empty))
+				Search_Name.Text="输入名字";
+		}
 
 		#endregion
 
@@ -247,6 +256,7 @@ namespace Contect_Book
 		//	temp.InnerText=Tel;
 		//	Root.AppendChild(temp);
 
+
 		//	temp=doc.CreateElement("QQ");
 		//	temp.InnerText=QQ;
 		//	Root.AppendChild(temp);
@@ -259,22 +269,27 @@ namespace Contect_Book
 			string temp = this.Search_Name.Text;
 			if(doc!=null)
 			{
-				XmlElement Search_Result = doc.SelectSingleNode(NodeTree+"/"+temp) as XmlElement;
-				if(Search_Result==null)
-					System.Windows.MessageBox.Show(temp+"未找到");
+				if(this.Insert_Name.Text.Equals(string.Empty))
+					System.Windows.MessageBox.Show("Empty Name Inserted!");
 				else
 				{
-					Searched_Detail Search_Info = new Searched_Detail(Search_Result,this.doc);
-					doc.Save(Xmlpath);
-					this.Contect_Book_View.ItemsSource = doc.SelectSingleNode(NodeTree).ChildNodes;
-					Contect_Book_View.UpdateLayout();
+					XmlElement Search_Result = doc.SelectSingleNode(NodeTree+"/"+temp) as XmlElement;
+					if(Search_Result==null)
+						System.Windows.MessageBox.Show(temp+"未找到");
+					else
+					{
+						Searched_Detail Search_Info = new Searched_Detail(Search_Result,this.doc);
+						doc.Save(Xmlpath);
+						this.Contect_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+						Contect_Book_View.UpdateLayout();
 
-					Search_Name.Text = "输入姓名";
+						Search_Name.Text="输入姓名";
+					}
 				}
 			}
+			else
+				System.Windows.MessageBox.Show("No Contect Book Loaded!");
 		}
-
-
 
 		#endregion
 

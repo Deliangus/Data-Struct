@@ -16,12 +16,13 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Tel:" Height="23" Width="25" />
                 <Separator Width="5" Visibility="Hidden"/>
-                <TextBox x:Name="TextBox_Tel" Height="23" Width="120" MaxLength="11" KeyDown="KeyDown_Tel"/>
+                <TextBox x:Name="TextBox_Tel" Height="23" Width="120" MaxLength="11"
+                         DataObject.Pasting="TextBox_Tel_Pasting" PreviewKeyDown="TextBox_Tel_PreviewKeyDown" InputMethod.IsInputMethodEnabled="False" PreviewTextInput="TextBox_Tel_PreviewTextInput"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="QQ:" Height="23" Width="25"/>
                 <Separator Width="5" Visibility="Hidden"/>
-                <TextBox x:Name="TextBox_QQ" Height="23" Width="120" MaxLength="12" KeyDown="KeyDown_QQ"/>
+                <TextBox x:Name="TextBox_QQ" Height="23" Width="120" MaxLength="12"/>
             </StackPanel>
             <Separator Visibility="Hidden" Height="20"/>
             <StackPanel Orientation="Horizontal">

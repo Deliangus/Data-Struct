@@ -29,21 +29,30 @@ namespace Contect_Book
 
 		public Searched_Detail(XmlNode Contector,XmlDocument doc)
 		{
+			InitializeComponent();
+
 			Carrier_Node = Contector;
 			Carrier_Doc = doc;
 
 			Name = Contector.FirstChild as XmlElement;
-			TextBox_Name.Text = Name.InnerText;
+			if(Name==null)
+				System.Windows.MessageBox.Show("Name = Contector.FirstChild as XmlElement;Empty"+"\n"+Carrier_Node.Name);
+			else
+			{
 
-			City = Name.NextSibling as XmlElement;
-			TextBox_City.Text = City.InnerText;
+				TextBox_Name.Text=Name.InnerText;
 
-			Tel = City.NextSibling as XmlElement;
-			TextBox_Tel.Text = Tel.InnerText;
+				City=Name.NextSibling as XmlElement;
+				TextBox_City.Text=City.InnerText;
 
-			QQ = Tel.NextSibling as XmlElement;
-			TextBox_QQ.Text = QQ.InnerText;
-			InitializeComponent();
+				Tel=City.NextSibling as XmlElement;
+				TextBox_Tel.Text=Tel.InnerText;
+
+				QQ=Tel.NextSibling as XmlElement;
+				TextBox_QQ.Text=QQ.InnerText;
+			}
+
+			this.ShowDialog();
 		}
 
 		private void Button_Search_Detail_Save_Click(object sender,RoutedEventArgs e)
@@ -58,7 +67,7 @@ namespace Contect_Book
 
 		private void Button_Search_Detail_Delete_Click(object sender,RoutedEventArgs e)
 		{
-			Carrier_Doc.RemoveChild(Carrier_Node);
+			Carrier_Node.ParentNode.RemoveChild(Carrier_Node);
 			this.Close();
 		}
 	}
