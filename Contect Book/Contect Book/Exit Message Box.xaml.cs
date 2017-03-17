@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Contect_Book
+namespace Contact_Book
 {
 	/// <summary>
 	/// Window1.xaml 的交互逻辑

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Contect_Book
+namespace Contact_Book
 {
 	/// <summary>
 	/// Insert_Detail.xaml 的交互逻辑
@@ -33,7 +33,7 @@ namespace Contect_Book
 			string City = TextBox_City.Text;
 			string Tel = TextBox_Tel.Text;
 			string QQ = TextBox_QQ.Text;
-			ContectData temp = new ContectData();
+			ContactData temp = new ContactData();
 			temp.Write_City(City);
 			temp.Write_QQ(QQ);
 			temp.Write_Tel(Tel);
@@ -94,7 +94,7 @@ namespace Contect_Book
 	        }
 		private void Button_Insert_Detail_Cancel_Click(object sender,RoutedEventArgs e)
 		{
-			ContectData temp = new ContectData();
+			ContactData temp = new ContactData();
 			temp.Write_VerifyCode(Insert_VerifyCode+1);
 			this.Close();
 		}

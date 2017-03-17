@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contect_Book
+namespace Contact_Book
 {
-	class ContectData
+	class ContactData
 	{
 		private static string Name;
 		private static string City;
@@ -14,7 +14,7 @@ namespace Contect_Book
 		private static string QQ;
 		private static int VerifyCode;
 
-		public ContectData()
+		public ContactData()
 		{
 		}
 

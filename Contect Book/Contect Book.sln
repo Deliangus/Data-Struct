@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contect Book", "Contect Book\Contect Book.csproj", "{A842B1F2-D280-47BA-8B37-38BE04C451F0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contact Book", "Contect Book\Contact Book.csproj", "{A842B1F2-D280-47BA-8B37-38BE04C451F0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

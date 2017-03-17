@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml;
 
-namespace Contect_Book
+namespace Contact_Book
 {
 	/// <summary>
 	/// Searched_Detail.xaml 的交互逻辑
@@ -27,16 +27,16 @@ namespace Contect_Book
 		XmlNode Carrier_Node;
 		XmlDocument Carrier_Doc;
 
-		public Searched_Detail(XmlNode Contector,XmlDocument doc)
+		public Searched_Detail(XmlNode Contactor,XmlDocument doc)
 		{
 			InitializeComponent();
 
-			Carrier_Node = Contector;
+			Carrier_Node = Contactor;
 			Carrier_Doc = doc;
 
-			Name = Contector.FirstChild as XmlElement;
+			Name = Contactor.FirstChild as XmlElement;
 			if(Name==null)
-				System.Windows.MessageBox.Show("Name = Contector.FirstChild as XmlElement;Empty"+"\n"+Carrier_Node.Name);
+				System.Windows.MessageBox.Show("Name = Contactor.FirstChild as XmlElement;Empty"+"\n"+Carrier_Node.Name);
 			else
 			{
 
