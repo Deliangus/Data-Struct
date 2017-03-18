@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ContactData.cs" />
     <Compile Include="Exit Message Box.xaml.cs">
       <DependentUpon>Exit Message Box.xaml</DependentUpon>
     </Compile>
