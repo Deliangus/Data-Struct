@@ -59,5 +59,15 @@ namespace Contact_Book.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap Sign_In_BackGround {
+            get {
+                object obj = ResourceManager.GetObject("Sign_In_BackGround", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

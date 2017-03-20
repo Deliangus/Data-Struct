@@ -1,0 +1,33 @@
+﻿<Window x:Class="Contact_Book.Sign_in"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Contact_Book"
+        mc:Ignorable="d"
+        Title="Sign In" ResizeMode="NoResize">
+    <Window.Background>
+        <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/Sign In BackGround.jpg"/>
+    </Window.Background>
+    <Grid>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical"
+                    >
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="User ID:" Width="70"/>
+                <TextBox Name="TextBox_User_ID" Width="100"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Passwords:" Width="70"/>
+                <PasswordBox Name="TextBox_Password" Width="100"/>
+            </StackPanel>
+            <Separator Height="20" Visibility="Hidden"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Sign In" Name="Button_Sign_In" Width="80" Height="20" Click="Click_Sign_In"/>
+                <Separator Width="10" Visibility="Hidden"/>
+                <Button Content="Sign Up" Name="Button_Sign_Up" Width="80" Height="20" Click="Click_Sign_Up"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

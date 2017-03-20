@@ -17,26 +17,27 @@ namespace Contact_Book
 	public partial class MainWindow: Window
 	{
 		public string Xmlpath = null;
-		private XmlDocument doc = null;
+		private XmlDocument Doc = null;
 		private int Insert_Verifycode = 0;
 		System.Random VerifyCode_Generator = new System.Random(new System.DateTime().Millisecond%1000);
 		public MainWindow()
 		{
 			InitializeComponent();
+			Sign_in Temp = new Sign_in();
 		}
 
 		#region DataGrid数据绑定
 
 		private void KeyDown_Reload(object sender,System.Windows.Input.KeyEventArgs e)
 		{
-			if(doc!=null)
-				this.Contact_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+			if(Doc!=null && !Sign_in.Get_Confidential_User_ID().Equals(string.Empty))
+				this.Contact_Book_View.ItemsSource=Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 		}
 
 		private void MouseDown_Reload(object sender,System.Windows.Input.MouseButtonEventArgs e)
 		{
-			if(doc!=null)
-				this.Contact_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+			if(Doc != null && !Sign_in.Get_Confidential_User_ID().Equals(string.Empty))
+				this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 		}
 		#endregion
 
@@ -52,19 +53,27 @@ namespace Contact_Book
 				this.Xmlpath=fbd.FileName;
 				if(this.Xmlpath!=null)
 				{
-					doc=new XmlDocument();
+					Doc=new XmlDocument();
 					
-					doc.Load(Xmlpath);
-					this.Contact_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+					Doc.Load(Xmlpath);
+
+					XmlNode User_Node = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim());
+					if(User_Node == null)
+					{
+						User_Node = Doc.CreateNode(XmlNodeType.Element,Sign_in.Get_Confidential_User_ID(),string.Empty);
+						Doc.SelectSingleNode(NodeTree).AppendChild(User_Node);
+					}
+
+					this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 				}
 			}
 		}
 
 		private void Click_Save(object sender,RoutedEventArgs e)
 		{
-			if(doc!=null)
+			if(Doc!=null)
 			{
-				doc.Save(Xmlpath);
+				Doc.Save(Xmlpath);
 			}
 			else
 			{
@@ -75,7 +84,7 @@ namespace Contact_Book
 
 		private void Click_New_Save(object sender,RoutedEventArgs e)
 		{
-			if(doc!=null)
+			if(Doc!=null)
 			{
 				SaveFileDialog fbd = new SaveFileDialog();
 				fbd.Filter="数据表|*.xml";
@@ -89,7 +98,7 @@ namespace Contact_Book
 						if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 							Xmlpath=fbd.FileName;
 					}
-					doc.Save(fbd.FileName);
+					Doc.Save(fbd.FileName);
 				}
 			}
 			else
@@ -101,7 +110,7 @@ namespace Contact_Book
 
 		private void Click_Exit(object sender,RoutedEventArgs e)
 		{
-			if(doc==null)
+			if(Doc==null)
 				this.Close();
 			else
 			{
@@ -144,14 +153,17 @@ namespace Contact_Book
 
 				if(this.Xmlpath!=null)
 				{
-					doc=new XmlDocument();
-					XmlNode Type_Node = doc.CreateXmlDeclaration("1.0","utf-8",null);
-					doc.AppendChild(Type_Node);
+					Doc=new XmlDocument();
+					XmlNode Type_Node = Doc.CreateXmlDeclaration("1.0","utf-8",null);
+					Doc.AppendChild(Type_Node);
 
-					XmlNode Config = doc.CreateNode(XmlNodeType.Element,"Config",string.Empty);
-					doc.AppendChild(Config);
-					doc.Save(Xmlpath);
-					Contact_Book_View.ItemsSource=doc.GetElementsByTagName("Contactor");
+					XmlNode Config = Doc.CreateNode(XmlNodeType.Element,"Config",string.Empty);
+					XmlNode User_Node = Doc.CreateNode(XmlNodeType.Element,Sign_in.Get_Confidential_User_ID().Trim(),string.Empty);
+					Config.AppendChild(User_Node);
+					Doc.AppendChild(Config);
+
+					Doc.Save(Xmlpath);
+					Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 				}
 			}
 		}
@@ -165,12 +177,12 @@ namespace Contact_Book
 		{
 			if(this.Insert_Name.Text.Equals(string.Empty))
 				System.Windows.MessageBox.Show("Empty Name Inserted!");
-			else if(doc==null)
+			else if(Doc==null)
 				System.Windows.MessageBox.Show("No Contact Book Loaded!");
 			else
 			{
 				string Name = this.Insert_Name.Text;
-				XmlElement Contact_Data = doc.SelectSingleNode(NodeTree+"/"+Name) as XmlElement;
+				XmlElement Contact_Data = Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()+"/"+Name) as XmlElement;
 				Insert_Verifycode=VerifyCode_Generator.Next();
 				if(Contact_Data==null)
 				{
@@ -179,35 +191,31 @@ namespace Contact_Book
 					if(Insert_Read.Get_VerifyCode()==Insert_Verifycode)
 					{
 
-						XmlNode Contactor = doc.SelectSingleNode(NodeTree);
-						Contact_Data=doc.CreateElement(Insert_Read.Get_Name());
-						//Contact_Data.SetAttribute("QQ",Insert_Read.Get_QQ());
-						//Contact_Data.SetAttribute("Tel",Insert_Read.Get_Tel());
-						//Contact_Data.SetAttribute("City",Insert_Read.Get_City());
-						//Contact_Data.SetAttribute("Name",Insert_Read.Get_Name());		
+						XmlNode Contactor = Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim());
+						Contact_Data=Doc.CreateElement(Insert_Read.Get_Name());
 
 						XmlElement Temp;
 
-						Temp=doc.CreateElement("Name");
+						Temp=Doc.CreateElement("Name");
 						Temp.InnerText=Insert_Read.Get_Name();
 						Contact_Data.AppendChild(Temp);
 
-						Temp=doc.CreateElement("City");
+						Temp=Doc.CreateElement("City");
 						Temp.InnerText=Insert_Read.Get_City();
 						Contact_Data.AppendChild(Temp);
 
-						Temp=doc.CreateElement("Tel");
+						Temp=Doc.CreateElement("Tel");
 						Temp.InnerText=Insert_Read.Get_Tel();
 						Contact_Data.AppendChild(Temp);
 
-						Temp=doc.CreateElement("QQ");
+						Temp=Doc.CreateElement("QQ");
 						Temp.InnerText=Insert_Read.Get_QQ();
 						Contact_Data.AppendChild(Temp);
 
 						Contactor.AppendChild(Contact_Data);
-						doc.Save(Xmlpath);
+						Doc.Save(Xmlpath);
 
-						this.Contact_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+						this.Contact_Book_View.ItemsSource=Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 						Contact_Book_View.UpdateLayout();
 						this.Insert_Name.Text="输入姓名";
 
@@ -247,20 +255,20 @@ namespace Contact_Book
 		private void Click_Search(object sender,RoutedEventArgs e)
 		{
 			string temp = this.Search_Name.Text;
-			if(doc!=null)
+			if(Doc!=null)
 			{
-				if(this.Insert_Name.Text.Equals(string.Empty))
+				if(this.Search_Name.Text.Equals(string.Empty))
 					System.Windows.MessageBox.Show("Empty Name Inserted!");
 				else
 				{
-					XmlElement Search_Result = doc.SelectSingleNode(NodeTree+"/"+temp) as XmlElement;
+					XmlElement Search_Result = Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()+"/"+temp) as XmlElement;
 					if(Search_Result==null)
 						System.Windows.MessageBox.Show(temp+"未找到");
 					else
 					{
-						Searched_Detail Search_Info = new Searched_Detail(Search_Result,this.doc);
-						doc.Save(Xmlpath);
-						this.Contact_Book_View.ItemsSource=doc.SelectSingleNode(NodeTree).ChildNodes;
+						Searched_Detail Search_Info = new Searched_Detail(Search_Result,this.Doc);
+						Doc.Save(Xmlpath);
+						this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 						Contact_Book_View.UpdateLayout();
 
 						Search_Name.Text="输入姓名";

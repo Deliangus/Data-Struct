@@ -22,7 +22,8 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="QQ:" Height="23" Width="25"/>
                 <Separator Width="5" Visibility="Hidden"/>
-                <TextBox x:Name="TextBox_QQ" Height="23" Width="120" MaxLength="12"/>
+                <TextBox x:Name="TextBox_QQ" Height="23" Width="120" MaxLength="12"
+                         DataObject.Pasting="TextBox_QQ_Pasting" PreviewKeyDown="TextBox_QQ_PreviewKeyDown" InputMethod.IsInputMethodEnabled="False" PreviewTextInput="TextBox_QQ_PreviewTextInput"/>
             </StackPanel>
             <Separator Visibility="Hidden" Height="20"/>
             <StackPanel Orientation="Horizontal">

@@ -27,12 +27,12 @@ namespace Contact_Book
 		XmlNode Carrier_Node;
 		XmlDocument Carrier_Doc;
 
-		public Searched_Detail(XmlNode Contactor,XmlDocument doc)
+		public Searched_Detail(XmlNode Contactor,XmlDocument Doc)
 		{
 			InitializeComponent();
 
 			Carrier_Node = Contactor;
-			Carrier_Doc = doc;
+			Carrier_Doc = Doc;
 
 			Name = Contactor.FirstChild as XmlElement;
 			if(Name==null)

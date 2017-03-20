@@ -92,11 +92,44 @@ namespace Contact_Book
 	            }
 	            return true;
 	        }
+
 		private void Button_Insert_Detail_Cancel_Click(object sender,RoutedEventArgs e)
 		{
 			ContactData temp = new ContactData();
 			temp.Write_VerifyCode(Insert_VerifyCode+1);
 			this.Close();
+		}
+
+		private void TextBox_QQ_PreviewTextInput(object sender,TextCompositionEventArgs e)
+		{
+			if(!isNumberic(e.Text))
+			{
+				e.Handled = true;
+			}
+			else
+				e.Handled = false;
+		}
+
+		private void TextBox_QQ_PreviewKeyDown(object sender,System.Windows.Input.KeyEventArgs e)
+		{
+			if(e.Key == Key.Space)
+				e.Handled = true;
+		}
+
+		private void TextBox_QQ_Pasting(object sender,DataObjectPastingEventArgs e)
+		{
+			if(e.DataObject.GetDataPresent(typeof(String)))
+			{
+				String text = (String)e.DataObject.GetData(typeof(String));
+				if(!isNumberic(text))
+				{
+					e.CancelCommand();
+				}
+			}
+			else
+			{
+				e.CancelCommand();
+			}
 		}
 	}
 }
