@@ -243,26 +243,6 @@ namespace Contact_Book
 
 		#endregion
 
-		//public void Xml_Carrier(string Name,string City,string Tel,string QQ)
-		//{
-		//	XmlElement Root = null, temp = null;
-		//	Root=doc.CreateElement("Name");
-		//	Root.InnerText=Name;
-		//	temp=doc.CreateElement("City");
-		//	temp.InnerText=City;
-		//	Root.AppendChild(temp);
-
-		//	temp=doc.CreateElement("Tel");
-		//	temp.InnerText=Tel;
-		//	Root.AppendChild(temp);
-
-
-		//	temp=doc.CreateElement("QQ");
-		//	temp.InnerText=QQ;
-		//	Root.AppendChild(temp);
-
-		//	doc.AppendChild(Root);
-		//}
 		#region 搜索数据
 		private void Click_Search(object sender,RoutedEventArgs e)
 		{
@@ -292,39 +272,5 @@ namespace Contact_Book
 		}
 
 		#endregion
-
-		//#region 自动生成数据列
-		//private void DataGrid_AutoGeneratingColumn(object sender,SystemControls.DataGridAutoGeneratingColumnEventArgs e)
-		//{
-		//	SystemControls.DataGridTemplateColumn Name = new SystemControls.DataGridTemplateColumn();
-		//	Name.Header="Name";
-		//	Name.CellTemplate=(DataTemplate)Resources["NameCellTemplate"];
-		//	Name.CellEditingTemplate=(DataTemplate)Resources["NameCellEditingTemplate"];
-		//	Name.SortMemberPath="Name";
-
-		//	SystemControls.DataGridTemplateColumn City = new SystemControls.DataGridTemplateColumn();
-		//	City.Header="City";
-		//	City.CellTemplate=(DataTemplate)Resources["CityCellTemplate"];
-		//	City.CellEditingTemplate=(DataTemplate)Resources["CityCellEditingTemplate"];
-		//	City.SortMemberPath="City";
-
-		//	SystemControls.DataGridTemplateColumn Tel = new SystemControls.DataGridTemplateColumn();
-		//	Tel.Header="Tel";
-		//	Tel.CellTemplate=(DataTemplate)Resources["TelCellTemplate"];
-		//	Tel.CellEditingTemplate=(DataTemplate)Resources["TelCellEditingTemplate"];
-		//	Tel.SortMemberPath="Tel";
-
-		//	SystemControls.DataGridTemplateColumn QQ = new SystemControls.DataGridTemplateColumn();
-		//	QQ.Header="QQ";
-		//	QQ.CellTemplate=(DataTemplate)Resources["QQCellTemplate"];
-		//	QQ.CellEditingTemplate=(DataTemplate)Resources["QQCellEditingTemplate"];
-		//	QQ.SortMemberPath="QQ";
-
-		//	string temp = e.Column.ToString();
-		//	if(temp!="Name"||temp!="City"||temp!="Tel"||temp!="QQ")
-		//		e.Cancel=true;
-		//}
-
-		//#endregion
 	}
 }
