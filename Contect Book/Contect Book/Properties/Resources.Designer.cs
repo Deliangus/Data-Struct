@@ -61,6 +61,37 @@ namespace Contact_Book.Properties {
         }
         
         /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;Config&gt;
+        ///  &lt;Administrator&gt;
+        ///    &lt;Developer&gt;
+        ///      &lt;Name&gt;罗宇翔&lt;/Name&gt;
+        ///      &lt;City&gt;惠州市&lt;/City&gt;
+        ///      &lt;Tel&gt;18675247550&lt;/Tel&gt;
+        ///      &lt;QQ&gt;422651378&lt;/QQ&gt;
+        ///    &lt;/Developer&gt;
+        ///  &lt;/Administrator&gt;
+        ///&lt;/Config&gt; 的本地化字符串。
+        /// </summary>
+        internal static string HaoKongTiaoGeLiZao {
+            get {
+                return ResourceManager.GetString("HaoKongTiaoGeLiZao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+        ///&lt;Config&gt;
+        ///  &lt;Administrator&gt;Romantic&lt;/Administrator&gt;
+        ///&lt;/Config&gt; 的本地化字符串。
+        /// </summary>
+        internal static string MeiDiBianPinKongTiao {
+            get {
+                return ResourceManager.GetString("MeiDiBianPinKongTiao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap Sign_In_BackGround {

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Contact_Book"
         mc:Ignorable="d"
-        Title="Sign In" ResizeMode="NoResize">
+        Title="Sign In" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
     <Window.Background>
         <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/Sign In BackGround.jpg"/>
     </Window.Background>

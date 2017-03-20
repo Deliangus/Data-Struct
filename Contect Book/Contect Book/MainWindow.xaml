@@ -12,10 +12,10 @@
         <StackPanel Orientation="Vertical" VerticalAlignment="Top">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="Open" Click="Click_Open" InputGestureText="Alt+O"/>
-                    <MenuItem Header="New" InputGestureText="Alt+C" Click="Click_New" Name="Menu_New"/>
+                    <MenuItem Header="Log Out" Click="Click_Log_Out" InputGestureText="Alt+O"/>
+                    <!--<MenuItem Header="New" InputGestureText="Alt+C" Click="Click_New" Name="Menu_New"/>-->
                     <MenuItem Header="Save" Click="Click_Save"/>
-                    <MenuItem Header="New Save" Click="Click_New_Save"/>
+                    <!--<MenuItem Header="New Save" Click="Click_New_Save"/>-->
                     <Separator/>
                     <MenuItem Header="Exit" Click="Click_Exit"/>
                 </MenuItem>

@@ -16,12 +16,13 @@ namespace Contact_Book
 
 	public partial class MainWindow: Window
 	{
-		public string Xmlpath = null;
+		public string Xmlpath = System.Environment.CurrentDirectory + @"\Resources\HaoKongTiaoGeLiZao.xml";
 		private XmlDocument Doc = null;
 		private int Insert_Verifycode = 0;
 		System.Random VerifyCode_Generator = new System.Random(new System.DateTime().Millisecond%1000);
 		public MainWindow()
 		{
+			InitialXmlDocument();
 			InitializeComponent();
 			Sign_in Temp = new Sign_in();
 		}
@@ -43,20 +44,15 @@ namespace Contact_Book
 
 		#region 菜单Open动作
 		private string NodeTree = "Config";//Config/?
-		private void Click_Open(object sender,RoutedEventArgs e)
+		private void InitialXmlDocument()
 		{
-			OpenFileDialog fbd = new OpenFileDialog();
-			fbd.Filter="数据表|*.xml";
-			fbd.InitialDirectory=System.Environment.CurrentDirectory;
-			if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+			if(File.Exists(Xmlpath))
 			{
-				this.Xmlpath=fbd.FileName;
-				if(this.Xmlpath!=null)
-				{
-					Doc=new XmlDocument();
-					
-					Doc.Load(Xmlpath);
+				Doc = new XmlDocument();
 
+				Doc.Load(Xmlpath);
+				if(Sign_in.Get_Confidential_User_ID() != null)
+				{
 					XmlNode User_Node = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim());
 					if(User_Node == null)
 					{
@@ -66,6 +62,12 @@ namespace Contact_Book
 
 					this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 				}
+				else
+					System.Windows.MessageBox.Show("Sign_in.Get_Confidential_User_ID()==null|98aus0d8fh");
+			}
+			else
+			{
+				New_Document();
 			}
 		}
 
@@ -82,31 +84,31 @@ namespace Contact_Book
 			return;
 		}
 
-		private void Click_New_Save(object sender,RoutedEventArgs e)
-		{
-			if(Doc!=null)
-			{
-				SaveFileDialog fbd = new SaveFileDialog();
-				fbd.Filter="数据表|*.xml";
-				fbd.InitialDirectory=System.Environment.CurrentDirectory;
-				if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
-				{
-					this.Xmlpath=fbd.FileName;;
-					while(File.Exists(Xmlpath))
-					{
-						System.Windows.Forms.MessageBox.Show("A file of same name exisited!");
-						if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
-							Xmlpath=fbd.FileName;
-					}
-					Doc.Save(fbd.FileName);
-				}
-			}
-			else
-			{
-				System.Windows.Forms.MessageBox.Show("Not yet load a Contact Book");
-			}
-			return;
-		}
+		//private void Click_New_Save(object sender,RoutedEventArgs e)
+		//{
+		//	if(Doc!=null)
+		//	{
+		//		SaveFileDialog fbd = new SaveFileDialog();
+		//		fbd.Filter="数据表|*.xml";
+		//		fbd.InitialDirectory=System.Environment.CurrentDirectory;
+		//		if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+		//		{
+		//			this.Xmlpath=fbd.FileName;;
+		//			while(File.Exists(Xmlpath))
+		//			{
+		//				System.Windows.Forms.MessageBox.Show("A file of same name exisited!");
+		//				if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+		//					Xmlpath=fbd.FileName;
+		//			}
+		//			Doc.Save(fbd.FileName);
+		//		}
+		//	}
+		//	else
+		//	{
+		//		System.Windows.Forms.MessageBox.Show("Not yet load a Contact Book");
+		//	}
+		//	return;
+		//}
 
 		private void Click_Exit(object sender,RoutedEventArgs e)
 		{
@@ -136,37 +138,26 @@ namespace Contact_Book
 			return;
 		}
 
-		private void Click_New(object sender,RoutedEventArgs e)
+		private void New_Document()
 		{
-			SaveFileDialog fbd = new SaveFileDialog();
-			fbd.InitialDirectory=System.Environment.CurrentDirectory;
-			fbd.Filter="数据表|*.xml";
-			if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
+			if(this.Xmlpath != null)
 			{
-				this.Xmlpath=fbd.FileName;
-				while(File.Exists(Xmlpath))
-				{
-					System.Windows.Forms.MessageBox.Show("A file of same name exisited!");
-					if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
-						Xmlpath=fbd.FileName;
-				}
+				Doc = new XmlDocument();
+				XmlNode Type_Node = Doc.CreateXmlDeclaration("1.0","utf-8",null);
+				Doc.AppendChild(Type_Node);
 
-				if(this.Xmlpath!=null)
-				{
-					Doc=new XmlDocument();
-					XmlNode Type_Node = Doc.CreateXmlDeclaration("1.0","utf-8",null);
-					Doc.AppendChild(Type_Node);
+				XmlNode Config = Doc.CreateNode(XmlNodeType.Element,"Config",string.Empty);
+				XmlNode User_Node = Doc.CreateNode(XmlNodeType.Element,Sign_in.Get_Confidential_User_ID().Trim(),string.Empty);
+				Config.AppendChild(User_Node);
+				Doc.AppendChild(Config);
 
-					XmlNode Config = Doc.CreateNode(XmlNodeType.Element,"Config",string.Empty);
-					XmlNode User_Node = Doc.CreateNode(XmlNodeType.Element,Sign_in.Get_Confidential_User_ID().Trim(),string.Empty);
-					Config.AppendChild(User_Node);
-					Doc.AppendChild(Config);
-
-					Doc.Save(Xmlpath);
-					Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
-				}
+				Doc.Save(Xmlpath);
+				Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 			}
+			else
+				System.Windows.MessageBox.Show("New_Document()|8i9awuf2");
 		}
+		
 
 		#endregion
 
@@ -280,5 +271,12 @@ namespace Contact_Book
 		}
 
 		#endregion
+
+		private void Click_Log_Out(object sender,RoutedEventArgs e)
+		{
+			Sign_in Temp = new Sign_in();
+			InitialXmlDocument();
+			InitializeComponent();
+		}
 	}
 }
