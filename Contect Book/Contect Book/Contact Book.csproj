@@ -68,7 +68,7 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -93,9 +93,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Confidential Level Signing Up.xaml.cs">
-      <DependentUpon>Confidential Level Signing Up.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ContactData.cs" />
     <Compile Include="Exit Message Box.xaml.cs">
       <DependentUpon>Exit Message Box.xaml</DependentUpon>
@@ -106,10 +103,6 @@
     <Compile Include="Sign in.xaml.cs">
       <DependentUpon>Sign in.xaml</DependentUpon>
     </Compile>
-    <Page Include="Confidential Level Signing Up.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Insert_Detail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

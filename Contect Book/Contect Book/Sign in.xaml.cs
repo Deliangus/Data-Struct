@@ -24,18 +24,16 @@ namespace Contact_Book
 	{
 		private string NodeTree = "Config";//Config/
 		private string XmlPath = System.Environment.CurrentDirectory+@"\Resources\MeiDiBianPinKongTiao.xml";
-		private XmlDocument Doc;
-		private static string User_ID;
-		private double WindowProportion;
+		//private XmlDocument Doc= null;
+		private static string User_ID=null;
 
 		#region 建立登陆窗口和载入账户目录
 		public Sign_in()
 		{
+			User_ID=null;
 			InitialAccounts();
-			WindowProportion = (double)Properties.Resources.Sign_In_BackGround.Width / Properties.Resources.Sign_In_BackGround.Height;
-			//System.Windows.MessageBox.Show(Properties.Resources.Sign_In_BackGround.Width.ToString()+"/"+ Properties.Resources.Sign_In_BackGround.Height.ToString());
 			this.Height = SystemParameters.PrimaryScreenHeight;
-			this.Width = this.Height * WindowProportion;
+			this.Width = this.Height *(double)Properties.Resources.Sign_In_BackGround.Width/(double)Properties.Resources.Sign_In_BackGround.Height;
 			InitializeComponent();
 			this.ShowDialog();
 		}
@@ -49,7 +47,7 @@ namespace Contact_Book
 		#region 读取权限和帐户名
 		private void InitialAccounts()
 		{
-			Doc = new XmlDocument();
+			XmlDocument Doc = new XmlDocument();
 			if(File.Exists(XmlPath))
 			{
 				try
@@ -102,42 +100,52 @@ namespace Contact_Book
 
 		public static string Get_Confidential_User_ID()
 		{
-			return User_ID;
+			return User_ID==null?null:User_ID;
 		}
 		#endregion
 
 		#region Button Sign In的交互逻辑
 		private void Click_Sign_In(object sender,RoutedEventArgs e)
 		{
-			if(this.TextBox_Password.Password.Equals(string.Empty) || this.TextBox_User_ID.Text.Equals(string.Empty))//账户和密码非空
+			if(this.TextBox_Password.Password.Equals(string.Empty)||this.TextBox_User_ID.Text.Equals(string.Empty))//账户和密码非空
 			{
 				System.Windows.MessageBox.Show("Invalid input of User ID and Password");
 			}
 			else
 			{
-				if(Doc != null)
+				if(File.Exists(XmlPath))
 				{
-					XmlElement Search_Result = Doc.SelectSingleNode(NodeTree + "/" + TextBox_User_ID.Text.Trim()) as XmlElement;//查找帐户名的节点
+					XmlDocument Doc = new XmlDocument();
+					Doc.Load(XmlPath);
+					XmlElement Search_Result = Doc.SelectSingleNode(NodeTree+"/"+TextBox_User_ID.Text.Trim()) as XmlElement;//查找帐户名的节点
 
-					if(Search_Result == null)
-						System.Windows.MessageBox.Show("The User ID does not exist,please varify and try again, or Sign Up as a new user!");
+					if(Search_Result==null)
+						System.Windows.MessageBox.Show("The User ID does not exist, please varify and try again, or Sign Up as a new user!");
 					else
 					{
-						if(Search_Result.InnerText.Equals(TextBox_Password.Password))
+						try
 						{
-							User_ID = TextBox_User_ID.Text;
-							Doc.Save(XmlPath);
-							this.Close();
+
+							if(Search_Result.InnerText.Equals(TextBox_Password.Password))
+							{
+								User_ID=TextBox_User_ID.Text;
+								Doc.Save(XmlPath);
+								this.Close();
+							}
+							else
+							{
+								System.Windows.MessageBox.Show("Wrong User ID or Password, please varify and try again");
+							}
 						}
-						else
+						catch(Exception ex)
 						{
-							System.Windows.MessageBox.Show("Wrong User ID or Password, please varify and try again");
+							System.Windows.MessageBox.Show(ex.Message+"|a3r923rg");
 						}
 					}
 				}
 				else
 				{
-					System.Windows.MessageBox.Show("Constructional Error!!Please Inform Developer By Email Address:Deliangus@Foxmail.com");
+					System.Windows.MessageBox.Show("User Index Lost!!Please Inform Developer By Email Address:Deliangus@Foxmail.com");
 					System.Windows.Forms.Application.Exit();
 				}
 			}
@@ -153,8 +161,18 @@ namespace Contact_Book
 				return;
 			}
 
-			if(Doc != null)
+			if(File.Exists(XmlPath))
 			{
+				XmlDocument Doc = new XmlDocument();
+				try
+				{
+					Doc.Load(XmlPath);
+				}
+				catch(Exception ex)
+				{
+					System.Windows.MessageBox.Show(ex.Message);
+				}
+
 				XmlElement Search_Result = Doc.SelectSingleNode(NodeTree + "/" + TextBox_User_ID.Text) as XmlElement;
 				if(Search_Result == null)
 				{
