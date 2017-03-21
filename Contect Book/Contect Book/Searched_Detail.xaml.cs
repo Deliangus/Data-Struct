@@ -20,7 +20,7 @@ namespace Contact_Book
 	/// </summary>
 	public partial class Searched_Detail: Window
 	{
-		private XmlElement _Name;
+		private XmlElement Name;
 		private XmlElement City;
 		private XmlElement Tel;
 		private XmlElement QQ;
@@ -34,15 +34,15 @@ namespace Contact_Book
 			Carrier_Node = Contactor;
 			Carrier_Doc = Doc;
 
-			_Name = Contactor.FirstChild as XmlElement;
-			if(_Name==null)
+			Name = Contactor.FirstChild as XmlElement;
+			if(Name==null)
 				System.Windows.MessageBox.Show("Name = Contactor.FirstChild as XmlElement;Empty"+"\n"+Carrier_Node.Name);
 			else
 			{
 
-				TextBox_Name.Text=_Name.InnerText;
+				TextBox_Name.Text=Name.InnerText;
 
-				City=_Name.NextSibling as XmlElement;
+				City=Name.NextSibling as XmlElement;
 				TextBox_City.Text=City.InnerText;
 
 				Tel=City.NextSibling as XmlElement;
@@ -57,10 +57,11 @@ namespace Contact_Book
 
 		private void Button_Search_Detail_Save_Click(object sender,RoutedEventArgs e)
 		{
-			_Name.InnerText = TextBox_Name.Text;
+			Name.InnerText = TextBox_Name.Text;
 			City.InnerText = TextBox_City.Text;
 			Tel.InnerText = TextBox_Tel.Text;
 			QQ.InnerText = TextBox_QQ.Text;
+
 			this.Close();
 		}
 

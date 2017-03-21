@@ -22,9 +22,9 @@ namespace Contact_Book
 		System.Random VerifyCode_Generator = new System.Random(new System.DateTime().Millisecond%1000);
 		public MainWindow()
 		{
+			Sign_in Temp = new Sign_in();
 			InitialXmlDocument();
 			InitializeComponent();
-			Sign_in Temp = new Sign_in();
 		}
 
 		#region DataGrid数据绑定
