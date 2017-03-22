@@ -63,13 +63,14 @@ namespace Polynomial
 
                 TextBlock_X.Text=Accumulate(HeadX);
             }
+            TextBox_XA.Text=string.Empty;
+            TextBox_XB.Text=string.Empty;
         }
 
         private void Click_CreatpolynY(object sender,RoutedEventArgs e)
         {
-            if(Int32.Parse(TextBox_XA.Text.Trim())!=0)
+            if(Int32.Parse(TextBox_YA.Text.Trim())!=0)
             {
-
                 if(HeadY==null)
                 {
                     HeadY=new PolynNode(Int32.Parse(TextBox_YA.Text.Trim()),Int32.Parse(TextBox_YB.Text.Trim()));
@@ -97,6 +98,8 @@ namespace Polynomial
                 }
                 TextBlock_Y.Text=Accumulate(HeadY);
             }
+            TextBox_YA.Text=string.Empty;
+            TextBox_YB.Text=string.Empty;
         }
 
         private PolynNode Get_ExpnX(int Expn)

@@ -14,56 +14,56 @@ namespace Contact_Book
 		private static string QQ;
 		private static int VerifyCode;
 
-		public ContactData()
+		private ContactData()
 		{
 		}
 
-		public void Write_Name(string temp)
+		public static void Write_Name(string temp)
 		{
 			Name=temp;
 		}
 
-		public void Write_City(string temp)
+        public static void Write_City(string temp)
 		{
 			City=temp;
 		}
 
-		public void Write_Tel(string temp)
+        public static void Write_Tel(string temp)
 		{
 			Tel=temp;
 		}
 
-		public void Write_QQ(string temp)
+        public static void Write_QQ(string temp)
 		{
 			QQ=temp;
 		}
 
-		public void Write_VerifyCode(int temp)
+        public static void Write_VerifyCode(int temp)
 		{
 			VerifyCode=temp;
 		}
 
-		public string Get_Name()
+        public static string Get_Name()
 		{
 			return Name;
 		}
 
-		public string Get_City()
+        public static string Get_City()
 		{
 			return City;
 		}
 
-		public string Get_Tel()
+        public static string Get_Tel()
 		{
 			return Tel;
 		}
 
-		public string Get_QQ()
+        public static string Get_QQ()
 		{
 			return QQ;
 		}
 
-		public int Get_VerifyCode()
+        public static int Get_VerifyCode()
 		{
 			return VerifyCode;
 		}

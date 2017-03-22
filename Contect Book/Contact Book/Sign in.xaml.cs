@@ -26,17 +26,15 @@ namespace Contact_Book
 		private string XmlPath = System.Environment.CurrentDirectory+@"\Resources\MeiDiBianPinKongTiao.xml";
 		private XmlDocument Doc;
 		private static string User_ID;
-		private double WindowProportion;
 
 		#region 建立登陆窗口和载入账户目录
 		public Sign_in()
 		{
 			InitialAccounts();
-			WindowProportion = (double)Properties.Resources.Sign_In_BackGround.Width / Properties.Resources.Sign_In_BackGround.Height;
 			//System.Windows.MessageBox.Show(Properties.Resources.Sign_In_BackGround.Width.ToString()+"/"+ Properties.Resources.Sign_In_BackGround.Height.ToString());
 			this.Height = SystemParameters.PrimaryScreenHeight;
-			this.Width = this.Height * WindowProportion;
-			InitializeComponent();
+			this.Width = this.Height *(double)Properties.Resources.Sign_In_BackGround.Width/Properties.Resources.Sign_In_BackGround.Height;
+            InitializeComponent();
 			this.ShowDialog();
 		}
 		#endregion

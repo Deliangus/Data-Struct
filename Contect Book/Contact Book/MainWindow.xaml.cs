@@ -17,13 +17,15 @@ namespace Contact_Book
 
 	public partial class MainWindow: Window
 	{
-		public string Xmlpath = System.Environment.CurrentDirectory + @"\Resources\HaoKongTiaoGeLiZao.xml";
+		public string XmlPath = System.Environment.CurrentDirectory + @"\Resources\HaoKongTiaoGeLiZao.xml";
 		private XmlDocument Doc = null;
 		private int Insert_Verifycode = 0;
 		System.Random VerifyCode_Generator = new System.Random(new System.DateTime().Millisecond%1000);
 		public MainWindow()
 		{
-			Sign_in Temp = new Sign_in();
+            this.Height=SystemParameters.PrimaryScreenHeight;
+            this.Width=this.Height*(double)Properties.Resources.Sign_In_BackGround.Width/Properties.Resources.Sign_In_BackGround.Height;
+            Sign_in Temp = new Sign_in();
 			InitializeComponent();
             InitialXmlDocument();
         }
@@ -47,11 +49,11 @@ namespace Contact_Book
 		private string NodeTree = "Config";//Config/?
 		private void InitialXmlDocument()
 		{
-			if(File.Exists(Xmlpath))
+			if(File.Exists(XmlPath))
 			{
 				Doc = new XmlDocument();
 
-				Doc.Load(Xmlpath);
+				Doc.Load(XmlPath);
 				if(Sign_in.Get_Confidential_User_ID() != null)
 				{
 					XmlNode User_Node = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim());
@@ -83,7 +85,7 @@ namespace Contact_Book
 		{
 			if(Doc!=null)
 			{
-				Doc.Save(Xmlpath);
+				Doc.Save(XmlPath);
 			}
 			else
 			{
@@ -101,12 +103,12 @@ namespace Contact_Book
 		//		fbd.InitialDirectory=System.Environment.CurrentDirectory;
 		//		if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
 		//		{
-		//			this.Xmlpath=fbd.FileName;;
-		//			while(File.Exists(Xmlpath))
+		//			this.XmlPath=fbd.FileName;;
+		//			while(File.Exists(XmlPath))
 		//			{
 		//				System.Windows.Forms.MessageBox.Show("A file of same name exisited!");
 		//				if(fbd.ShowDialog()==System.Windows.Forms.DialogResult.OK)
-		//					Xmlpath=fbd.FileName;
+		//					XmlPath=fbd.FileName;
 		//			}
 		//			Doc.Save(fbd.FileName);
 		//		}
@@ -148,7 +150,7 @@ namespace Contact_Book
 
 		private void New_Document()
 		{
-			if(this.Xmlpath != null)
+			if(this.XmlPath != null)
 			{
 				Doc = new XmlDocument();
 				XmlNode Type_Node = Doc.CreateXmlDeclaration("1.0","utf-8",null);
@@ -159,7 +161,7 @@ namespace Contact_Book
 				Config.AppendChild(User_Node);
 				Doc.AppendChild(Config);
 
-				Doc.Save(Xmlpath);
+				Doc.Save(XmlPath);
 				Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 			}
 			else
@@ -170,8 +172,6 @@ namespace Contact_Book
 		#endregion
 
 		#region 插入数据
-		private ContactData Insert_Read = new ContactData();
-
 		private void Click_Insert(object sender,RoutedEventArgs e)
 		{
 			if(this.Insert_Name.Text.Equals(string.Empty))
@@ -187,32 +187,32 @@ namespace Contact_Book
 				{
 					Insert_Detail Item = new Insert_Detail(Name,Insert_Verifycode);
 
-					if(Insert_Read.Get_VerifyCode()==Insert_Verifycode)
+					if(ContactData.Get_VerifyCode()==Insert_Verifycode)
 					{
 
 						XmlNode Contactor = Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim());
-						Contact_Data=Doc.CreateElement(Insert_Read.Get_Name());
+						Contact_Data=Doc.CreateElement(ContactData.Get_Name());
 
 						XmlElement Temp;
 
 						Temp=Doc.CreateElement("Name");
-						Temp.InnerText=Insert_Read.Get_Name();
+						Temp.InnerText=ContactData.Get_Name();
 						Contact_Data.AppendChild(Temp);
 
 						Temp=Doc.CreateElement("City");
-						Temp.InnerText=Insert_Read.Get_City();
+						Temp.InnerText=ContactData.Get_City();
 						Contact_Data.AppendChild(Temp);
 
 						Temp=Doc.CreateElement("Tel");
-						Temp.InnerText=Insert_Read.Get_Tel();
+						Temp.InnerText=ContactData.Get_Tel();
 						Contact_Data.AppendChild(Temp);
 
 						Temp=Doc.CreateElement("QQ");
-						Temp.InnerText=Insert_Read.Get_QQ();
+						Temp.InnerText=ContactData.Get_QQ();
 						Contact_Data.AppendChild(Temp);
 
 						Contactor.AppendChild(Contact_Data);
-						Doc.Save(Xmlpath);
+						Doc.Save(XmlPath);
 
 						this.Contact_Book_View.ItemsSource=Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 						Contact_Book_View.UpdateLayout();
@@ -265,7 +265,7 @@ namespace Contact_Book
 					else
 					{
 						Searched_Detail Search_Info = new Searched_Detail(Search_Result,this.Doc);
-						Doc.Save(Xmlpath);
+						Doc.Save(XmlPath);
 						this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 						Contact_Book_View.UpdateLayout();
 
@@ -281,6 +281,8 @@ namespace Contact_Book
 
 		private void Click_Log_Out(object sender,RoutedEventArgs e)
 		{
+
+            Doc.Save(XmlPath);
 			Sign_in Temp = new Sign_in();
 			InitialXmlDocument();
 			InitializeComponent();
@@ -289,7 +291,12 @@ namespace Contact_Book
         private void DataGrid_Selected_Cells_Changed(object sender, SystemControls.SelectedCellsChangedEventArgs e)
         {
             //System.Windows.MessageBox.Show(this.Contact_Book_View.SelectedCells.)
-            System.Windows.MessageBox.Show(this.Contact_Book_View.SelectedValue.ToString()+"2\n"+ this.Contact_Book_View.SelectedItem.ToString());
+            //System.Windows.MessageBox.Show(this.Contact_Book_View.SelectionUnit);
+        }
+
+        private void CellsBeginningEdit(object sender,SystemControls.DataGridBeginningEditEventArgs e)
+        {
+
         }
     }
 }

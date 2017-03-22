@@ -33,12 +33,12 @@ namespace Contact_Book
 			string City = TextBox_City.Text;
 			string Tel = TextBox_Tel.Text;
 			string QQ = TextBox_QQ.Text;
-			ContactData temp = new ContactData();
-			temp.Write_City(City);
-			temp.Write_QQ(QQ);
-			temp.Write_Tel(Tel);
-			temp.Write_Name(this.Title);
-			temp.Write_VerifyCode(Insert_VerifyCode);
+
+			ContactData.Write_City(City);
+			ContactData.Write_QQ(QQ);
+			ContactData.Write_Tel(Tel);
+			ContactData.Write_Name(this.Title);
+			ContactData.Write_VerifyCode(Insert_VerifyCode);
 			this.Close();
 		}
 
@@ -95,8 +95,7 @@ namespace Contact_Book
 
 		private void Button_Insert_Detail_Cancel_Click(object sender,RoutedEventArgs e)
 		{
-			ContactData temp = new ContactData();
-			temp.Write_VerifyCode(Insert_VerifyCode+1);
+			ContactData.Write_VerifyCode(Insert_VerifyCode+1);
 			this.Close();
 		}
 
