@@ -30,65 +30,73 @@ namespace Polynomial
             InitializeComponent();
         }
 
-        private void Click_CreatpolynX(object sender, RoutedEventArgs e)
+        private void Click_CreatpolynX(object sender,RoutedEventArgs e)
         {
-            if (HeadX == null)
+            if(Int32.Parse(TextBox_XA.Text.Trim())!=0)
             {
-                HeadX = new PolynNode(Int32.Parse(TextBox_XA.Text.Trim()), Int32.Parse(TextBox_XB.Text.Trim()));
-            }
-            else
-            {
-                float coef = Int32.Parse(TextBox_XA.Text.Trim());
-                int expn = Int32.Parse(TextBox_XB.Text.Trim());
-                PolynNode Temp = Get_ExpnX(expn);
-                if(Temp==HeadX)
+
+                if(HeadX==null)
                 {
-                    Temp = new PolynNode(coef, expn, HeadX);
-                    HeadX = Temp;
+                    HeadX=new PolynNode(Int32.Parse(TextBox_XA.Text.Trim()),Int32.Parse(TextBox_XB.Text.Trim()));
                 }
                 else
                 {
-                    if (Temp.expn == expn)
-                        System.Windows.MessageBox.Show("x^" + expn.ToString() + "existed");
+                    float coef = Int32.Parse(TextBox_XA.Text.Trim());
+                    int expn = Int32.Parse(TextBox_XB.Text.Trim());
+                    PolynNode Temp = Get_ExpnX(expn);
+                    if(Temp==HeadX)
+                    {
+                        Temp=new PolynNode(coef,expn,HeadX);
+                        HeadX=Temp;
+                    }
                     else
                     {
-                        PolynNode temp = new PolynNode(coef, expn, Temp.Next);
-                        Temp.Next = temp;
+                        if(Temp.expn==expn)
+                            System.Windows.MessageBox.Show("x^"+expn.ToString()+"existed");
+                        else
+                        {
+                            PolynNode temp = new PolynNode(coef,expn,Temp.Next);
+                            Temp.Next=temp;
+                        }
                     }
                 }
-            }
 
-            TextBlock_X.Text = Accumulate(HeadX);
+                TextBlock_X.Text=Accumulate(HeadX);
+            }
         }
 
-        private void Click_CreatpolynY(object sender, RoutedEventArgs e)
+        private void Click_CreatpolynY(object sender,RoutedEventArgs e)
         {
-            if (HeadY == null)
+            if(Int32.Parse(TextBox_XA.Text.Trim())!=0)
             {
-                HeadY = new PolynNode(Int32.Parse(TextBox_YA.Text.Trim()), Int32.Parse(TextBox_YB.Text.Trim()));
-            }
-            else
-            {
-                float coef = Int32.Parse(TextBox_YA.Text.Trim());
-                int expn = Int32.Parse(TextBox_YB.Text.Trim());
-                PolynNode Temp = Get_ExpnY(expn);
-                if (Temp == HeadY)
+
+                if(HeadY==null)
                 {
-                    Temp = new PolynNode(coef, expn, HeadY);
-                    HeadY = Temp;
+                    HeadY=new PolynNode(Int32.Parse(TextBox_YA.Text.Trim()),Int32.Parse(TextBox_YB.Text.Trim()));
                 }
                 else
                 {
-                    if (Temp.expn == expn)
-                        System.Windows.MessageBox.Show("Y^" + expn.ToString() + "existed");
+                    float coef = Int32.Parse(TextBox_YA.Text.Trim());
+                    int expn = Int32.Parse(TextBox_YB.Text.Trim());
+                    PolynNode Temp = Get_ExpnY(expn);
+                    if(Temp==HeadY)
+                    {
+                        Temp=new PolynNode(coef,expn,HeadY);
+                        HeadY=Temp;
+                    }
                     else
                     {
-                        PolynNode temp = new PolynNode(coef, expn, Temp.Next);
-                        Temp.Next = temp;
+                        if(Temp.expn==expn)
+                            System.Windows.MessageBox.Show("Y^"+expn.ToString()+"existed");
+                        else
+                        {
+                            PolynNode temp = new PolynNode(coef,expn,Temp.Next);
+                            Temp.Next=temp;
+                        }
                     }
                 }
+                TextBlock_Y.Text=Accumulate(HeadY);
             }
-            TextBlock_Y.Text = Accumulate(HeadY);
         }
 
         private PolynNode Get_ExpnX(int Expn)
