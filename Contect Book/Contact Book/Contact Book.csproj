@@ -208,9 +208,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MeiDiBianPinKongTiao.xml">
+    <EmbeddedResource Include="Resources\MeiDiBianPinKongTiao.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Sign In BackGround.jpg">
@@ -218,9 +218,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\HaoKongTiaoGeLiZao.xml">
+    <EmbeddedResource Include="Resources\HaoKongTiaoGeLiZao.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using SystemControls = System.Windows.Controls;
 using System.Resources;
+using System;
 
 namespace Contact_Book
 {
@@ -23,9 +24,9 @@ namespace Contact_Book
 		public MainWindow()
 		{
 			Sign_in Temp = new Sign_in();
-			InitialXmlDocument();
 			InitializeComponent();
-		}
+            InitialXmlDocument();
+        }
 
 		#region DataGrid数据绑定
 
@@ -42,7 +43,7 @@ namespace Contact_Book
 		}
 		#endregion
 
-		#region 菜单Open动作
+		#region 初始化联系人列表
 		private string NodeTree = "Config";//Config/?
 		private void InitialXmlDocument()
 		{
@@ -59,8 +60,15 @@ namespace Contact_Book
 						User_Node = Doc.CreateNode(XmlNodeType.Element,Sign_in.Get_Confidential_User_ID(),string.Empty);
 						Doc.SelectSingleNode(NodeTree).AppendChild(User_Node);
 					}
-
-					this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
+                    //System.Windows.MessageBox.Show(Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes.ToString());
+                    try
+                    {
+                        this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
+                    }
+                    catch(Exception e)
+                    {
+                        System.Windows.MessageBox.Show(e.Message);
+                    }
 				}
 				else
 					System.Windows.MessageBox.Show("Sign_in.Get_Confidential_User_ID()==null|98aus0d8fh");
@@ -245,16 +253,15 @@ namespace Contact_Book
 		#region 搜索数据
 		private void Click_Search(object sender,RoutedEventArgs e)
 		{
-			string temp = this.Search_Name.Text;
 			if(Doc!=null)
 			{
-				if(this.Search_Name.Text.Equals(string.Empty))
+				if(this.Search_Name.Text.Trim().Equals(string.Empty))
 					System.Windows.MessageBox.Show("Empty Name Inserted!");
 				else
 				{
-					XmlElement Search_Result = Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()+"/"+temp) as XmlElement;
+					XmlElement Search_Result = Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()+"/"+ this.Search_Name.Text.Trim()) as XmlElement;
 					if(Search_Result==null)
-						System.Windows.MessageBox.Show(temp+"未找到");
+						System.Windows.MessageBox.Show(this.Search_Name.Text.Trim()+ "未找到");
 					else
 					{
 						Searched_Detail Search_Info = new Searched_Detail(Search_Result,this.Doc);

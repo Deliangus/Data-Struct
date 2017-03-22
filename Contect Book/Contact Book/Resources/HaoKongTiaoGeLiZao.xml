@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+  <Administrator>
+    <罗宇翔>
+      <Name>罗宇翔</Name>
+      <City>惠州市</City>
+      <Tel>18675247550</Tel>
+      <QQ>422651378</QQ>
+    </罗宇翔>
+    <娄成恺>
+      <Name>娄成恺</Name>
+      <City>上海市</City>
+      <Tel>13331889701</Tel>
+      <QQ>974786141</QQ>
+    </娄成恺>
+    <卢伟>
+      <Name>卢伟</Name>
+      <City>宜春市</City>
+      <Tel>18846839015</Tel>
+      <QQ>1679826103</QQ>
+    </卢伟>
+  </Administrator>
+  <Visitor>
+    <马庆涛>
+      <Name>马庆涛</Name>
+      <City>双城市</City>
+      <Tel>18746196175</Tel>
+      <QQ>1148450187</QQ>
+    </马庆涛>
+    <王晨成>
+      <Name>王晨成</Name>
+      <City>安徽省</City>
+      <Tel>18846933919</Tel>
+      <QQ>240862419</QQ>
+    </王晨成>
+    <杨浩>
+      <Name>杨浩</Name>
+      <City>天津市</City>
+      <Tel>13263515585</Tel>
+      <QQ>243639251</QQ>
+    </杨浩>
+  </Visitor>
+</Config>
