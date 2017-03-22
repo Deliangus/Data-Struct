@@ -285,5 +285,11 @@ namespace Contact_Book
 			InitialXmlDocument();
 			InitializeComponent();
 		}
-	}
+
+        private void DataGrid_Selected_Cells_Changed(object sender, SystemControls.SelectedCellsChangedEventArgs e)
+        {
+            //System.Windows.MessageBox.Show(this.Contact_Book_View.SelectedCells.)
+            System.Windows.MessageBox.Show(this.Contact_Book_View.SelectedValue.ToString()+"2\n"+ this.Contact_Book_View.SelectedItem.ToString());
+        }
+    }
 }

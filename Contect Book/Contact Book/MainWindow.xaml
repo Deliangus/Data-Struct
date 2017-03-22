@@ -3,10 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Contact_Book"
         mc:Ignorable="d"
-        Title="Contact Book" Height="350" Width="525" MinWidth="525" MinHeight="350"
-        
+        Title="Contact Book" Height="350" Width="525" MinWidth="525" MinHeight="350" Icon="pack://siteoforigin:,,,/Resources/MainWindow_ICO.ico"
         >
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Top">
@@ -35,13 +33,14 @@
             IsReadOnly="False"
             VerticalContentAlignment="Stretch"
             Margin="0,17,0,108"
-            AutoGenerateColumns="False" KeyDown="KeyDown_Reload" MouseDown="MouseDown_Reload"
+            AutoGenerateColumns="False" KeyDown="KeyDown_Reload" MouseDown="MouseDown_Reload" SelectedCellsChanged="DataGrid_Selected_Cells_Changed"
             >
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="Column_Name" Width="100" IsReadOnly="False" Binding="{Binding XPath=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="Name"/>
                 <DataGridTextColumn x:Name="Column_City" Width="100" IsReadOnly="False" Binding="{Binding XPath=City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="City"/>
                 <DataGridTextColumn x:Name="Column_Tel" Width="100" IsReadOnly="False" Binding="{Binding XPath=Tel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="Tel"/>
                 <DataGridTextColumn x:Name="Column_QQ" Width="100" IsReadOnly="False" Binding="{Binding XPath=QQ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="QQ"/>
+                <!--<DataGridTextColumn x:Name="Column_Reference" Width="100" IsReadOnly="False" Binding="{Binding XPath=Reference,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="备注"/>-->
             </DataGrid.Columns>
         </DataGrid>
         <Grid Margin="0" Height="108" VerticalAlignment="Bottom">

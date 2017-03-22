@@ -64,14 +64,28 @@ namespace Contact_Book.Properties {
         ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;Config&gt;
         ///  &lt;Administrator&gt;
-        ///    &lt;Developer&gt;
+        ///    &lt;罗宇翔&gt;
         ///      &lt;Name&gt;罗宇翔&lt;/Name&gt;
         ///      &lt;City&gt;惠州市&lt;/City&gt;
         ///      &lt;Tel&gt;18675247550&lt;/Tel&gt;
         ///      &lt;QQ&gt;422651378&lt;/QQ&gt;
-        ///    &lt;/Developer&gt;
+        ///    &lt;/罗宇翔&gt;
+        ///    &lt;娄成恺&gt;
+        ///      &lt;Name&gt;娄成恺&lt;/Name&gt;
+        ///      &lt;City&gt;上海市&lt;/City&gt;
+        ///      &lt;Tel&gt;13331889701&lt;/Tel&gt;
+        ///      &lt;QQ&gt;974786141&lt;/QQ&gt;
+        ///    &lt;/娄成恺&gt;
+        ///    &lt;卢伟&gt;
+        ///      &lt;Name&gt;卢伟&lt;/Name&gt;
+        ///      &lt;City&gt;宜春市&lt;/City&gt;
+        ///      &lt;Tel&gt;18846839015&lt;/Tel&gt;
+        ///      &lt;QQ&gt;1679826103&lt;/QQ&gt;
+        ///    &lt;/卢伟&gt;
         ///  &lt;/Administrator&gt;
-        ///&lt;/Config&gt; 的本地化字符串。
+        ///  &lt;Visitor&gt;
+        ///    &lt;马庆涛&gt;
+        ///      &lt;Name&gt;马庆涛&lt;/Na [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string HaoKongTiaoGeLiZao {
             get {
@@ -80,9 +94,20 @@ namespace Contact_Book.Properties {
         }
         
         /// <summary>
+        ///   查找类似于 (Icon) 的 System.Drawing.Icon 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Icon MainWindow_ICO {
+            get {
+                object obj = ResourceManager.GetObject("MainWindow_ICO", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 &lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
         ///&lt;Config&gt;
         ///  &lt;Administrator&gt;Romantic&lt;/Administrator&gt;
+        ///  &lt;Visitor&gt;00000000&lt;/Visitor&gt;
         ///&lt;/Config&gt; 的本地化字符串。
         /// </summary>
         internal static string MeiDiBianPinKongTiao {
