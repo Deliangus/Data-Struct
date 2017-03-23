@@ -265,7 +265,9 @@ namespace Contact_Book
                         DataRow Rows_Selected = dt.Select("Name='"+this.Insert_Name.Text.Trim()+"'")[0];
                         if(Rows_Selected==null)
                         {
-                            Object[] temp = new Object[5];
+							Insert_Detail Item = new Insert_Detail(Name,Insert_Verifycode);
+
+							Object[] temp = new Object[5];
                             temp[0]=ContactData.Get_Name();
                             temp[1]=ContactData.Get_City();
                             temp[2]=ContactData.Get_Tel();
