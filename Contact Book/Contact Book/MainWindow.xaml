@@ -4,8 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Contact Book" Height="350" Width="525" MinWidth="525" MinHeight="350" Icon="pack://siteoforigin:,,,/Resources/MainWindow_ICO.ico"
+        Title="Contact Book" ResizeMode="CanMinimize" Icon="pack://siteoforigin:,,,/Resources/MainWindow_ICO.ico"
         >
+    <Window.Background>
+        <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/Sign In BackGround.jpg"/>
+    </Window.Background>
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Top">
             <Menu DockPanel.Dock="Top">
@@ -33,8 +36,16 @@
             IsReadOnly="False"
             VerticalContentAlignment="Stretch"
             Margin="0,17,0,108"
-            AutoGenerateColumns="False" KeyDown="KeyDown_Reload" MouseDown="MouseDown_Reload" SelectedCellsChanged="DataGrid_Selected_Cells_Changed"
+            AutoGenerateColumns="False" KeyDown="KeyDown_Reload" MouseDown="MouseDown_Reload"
+            SelectionMode="Single"
+            SelectedCellsChanged="DataGrid_Selected_Cells_Changed" SelectionUnit="Cell" BeginningEdit="CellsBeginningEdit" Background="{x:Null}"
             >
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="White" />
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="Column_Name" Width="100" IsReadOnly="False" Binding="{Binding XPath=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="Name"/>
                 <DataGridTextColumn x:Name="Column_City" Width="100" IsReadOnly="False" Binding="{Binding XPath=City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="City"/>

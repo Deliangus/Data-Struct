@@ -102,6 +102,9 @@
     <Compile Include="Exit Message Box.xaml.cs">
       <DependentUpon>Exit Message Box.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Option For Cell.xaml.cs">
+      <DependentUpon>Option For Cell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Searched_Detail.xaml.cs">
       <DependentUpon>Searched_Detail.xaml</DependentUpon>
     </Compile>
@@ -128,6 +131,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Exit Message Box.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Option For Cell.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -229,6 +236,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\MainWindow_ICO.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\MainWindow BackGround.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
