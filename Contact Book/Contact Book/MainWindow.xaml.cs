@@ -8,6 +8,9 @@ using System.Text;
 using SystemControls = System.Windows.Controls;
 using System.Resources;
 using System;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace Contact_Book
 {
@@ -27,21 +30,42 @@ namespace Contact_Book
             this.Width=this.Height*(double)Properties.Resources.Sign_In_BackGround.Width/Properties.Resources.Sign_In_BackGround.Height;
             Sign_in Temp = new Sign_in();
 			InitializeComponent();
-            InitialXmlDocument();
+            this.FillDataGrid();
+            //InitialXmlDocument();
         }
 
-		#region DataGrid数据绑定
+        private void FillDataGrid()
+        {   
+            //大概过程---先配置数据库ConString（因为配置文件App.config把数据库名字改成了这个）,作用是说明在配置文件里直接就可以修改数据库的参数而不用麻烦的在代码里改
+            //--然后定义一个字符串用作写T-SQL语句,然后初始化数据库连接(使用配置文件ConString)，字符串放T-sql语句
+            //--再然后数据库命令，作用是使得上一句的字符串的命令生效
+            //--再然后实例化SqlDataAdapter
+            //---再然后实例化数据表DataTable
+            //---再然后SqlDataAdapter填充数据表DataTable的东西
+            //--最后把填充好的数据的基础视图赋值给DataGrid的ItemSource
+            using(SqlConnection con = new SqlConnection(Properties.Settings.Default.DataBaseConnectionString))
+            {
+                SqlCommand cmd = new SqlCommand("SELECT Name,City,Tel,QQ FROM Contactors WHERE Belong='"+Sign_in.Get_Confidential_User_ID().Trim()+"'",con);
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                sda.Fill(dt);
+                Contact_Book_View.ItemsSource=dt.DefaultView;
+            }
+        }
+        #region DataGrid数据绑定
 
-		private void KeyDown_Reload(object sender,System.Windows.Input.KeyEventArgs e)
+        private void KeyDown_Reload(object sender,System.Windows.Input.KeyEventArgs e)
 		{
-			if(Doc!=null && !Sign_in.Get_Confidential_User_ID().Equals(string.Empty))
-				this.Contact_Book_View.ItemsSource=Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
+            this.FillDataGrid();
+			//if(Doc!=null && !Sign_in.Get_Confidential_User_ID().Equals(string.Empty))
+			//	this.Contact_Book_View.ItemsSource=Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 		}
 
 		private void MouseDown_Reload(object sender,System.Windows.Input.MouseButtonEventArgs e)
 		{
-			if(Doc != null && !Sign_in.Get_Confidential_User_ID().Equals(string.Empty))
-				this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
+            this.FillDataGrid();
+			//if(Doc != null && !Sign_in.Get_Confidential_User_ID().Equals(string.Empty))
+			//	this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
 		}
 		#endregion
 
@@ -174,11 +198,11 @@ namespace Contact_Book
 		#region 插入数据
 		private void Click_Insert(object sender,RoutedEventArgs e)
 		{
-			if(this.Insert_Name.Text.Equals(string.Empty))
-				System.Windows.MessageBox.Show("Empty Name Inserted!");
-			else if(Doc==null)
-				System.Windows.MessageBox.Show("No Contact Book Loaded!");
-			else
+            if(this.Insert_Name.Text.Equals(string.Empty))
+                System.Windows.MessageBox.Show("Empty Name Inserted!");
+            //else if(Doc==null)
+            //System.Windows.MessageBox.Show("No Contact Book Loaded!");
+            /*else
 			{
 				string Name = this.Insert_Name.Text;
 				XmlElement Contact_Data = Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()+"/"+Name) as XmlElement;
@@ -223,6 +247,20 @@ namespace Contact_Book
 				else
 					System.Windows.MessageBox.Show(Name+" is already existed!");
 			}
+            */
+            else
+            {
+                using(SqlConnection con = new SqlConnection(Properties.Settings.Default.DataBaseConnectionString))
+                {
+                    SqlCommand cmd = new SqlCommand("SELECT Name,City,Tel,QQ FROM Contactors WHERE Belong='"+Sign_in.Get_Confidential_User_ID().Trim()+"'",con);
+                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    sda.Fill(dt);
+                    long Rows_Selected = dt.Select("Name='"+this.Insert_Name.Text.Trim()+"'").GetLength(2);
+                    if(Rows_Selected)
+                    Contact_Book_View.ItemsSource=dt.DefaultView;
+                }
+            }
 		}
 
 
