@@ -291,5 +291,6 @@ namespace Contact_Book
             //System.Windows.MessageBox.Show(this.Contact_Book_View.SelectedCells.)
             System.Windows.MessageBox.Show(this.Contact_Book_View.SelectedValue.ToString()+"2\n"+ this.Contact_Book_View.SelectedItem.ToString());
         }
+
     }
 }
