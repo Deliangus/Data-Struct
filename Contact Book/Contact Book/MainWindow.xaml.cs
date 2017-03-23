@@ -191,13 +191,13 @@ namespace Contact_Book
 			else
 				System.Windows.MessageBox.Show("New_Document()|8i9awuf2");
 		}
-		
 
-		#endregion
 
-		#region 插入数据
-		private void Click_Insert(object sender,RoutedEventArgs e)
-		{
+        #endregion
+
+        #region 插入数据
+        private void Click_Insert(object sender,RoutedEventArgs e)
+        {
             if(this.Insert_Name.Text.Equals(string.Empty))
                 System.Windows.MessageBox.Show("Empty Name Inserted!");
             //else if(Doc==null)
@@ -252,17 +252,44 @@ namespace Contact_Book
             {
                 using(SqlConnection con = new SqlConnection(Properties.Settings.Default.DataBaseConnectionString))
                 {
-                    SqlCommand cmd = new SqlCommand("SELECT Name,City,Tel,QQ FROM Contactors WHERE Belong='"+Sign_in.Get_Confidential_User_ID().Trim()+"'",con);
-                    SqlDataAdapter sda = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    sda.Fill(dt);
-                    long Rows_Selected = dt.Select("Name='"+this.Insert_Name.Text.Trim()+"'").GetLength(2);
-                    if(Rows_Selected)
-                    Contact_Book_View.ItemsSource=dt.DefaultView;
+                    try
+                    {
+                        SqlCommand cmd = new SqlCommand("SELECT Name,City,Tel,QQ FROM Contactors WHERE Belong='"+Sign_in.Get_Confidential_User_ID().Trim()+"'",con);
+                        SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                        SqlDataAdapter AutoSda = new SqlDataAdapter();
+                        AutoSda.SelectCommand=new SqlCommand("select*From Contactors",con);
+                        SqlCommandBuilder ComBuild = new SqlCommandBuilder(AutoSda);
+                        con.Open();
+                        DataTable dt = new DataTable();
+                        sda.Fill(dt);
+                        DataRow Rows_Selected = dt.Select("Name='"+this.Insert_Name.Text.Trim()+"'")[0];
+                        if(Rows_Selected==null)
+                        {
+                            Object[] temp = new Object[5];
+                            temp[0]=ContactData.Get_Name();
+                            temp[1]=ContactData.Get_City();
+                            temp[2]=ContactData.Get_Tel();
+                            temp[3]=ContactData.Get_QQ();
+                            temp[4]=Sign_in.Get_Confidential_User_ID();
+                            dt.LoadDataRow(temp,true);
+                            sda.Update(dt);
+                            dt.AcceptChanges();
+                            Contact_Book_View.ItemsSource=dt.DefaultView;
+                        }
+                        else
+                            System.Windows.MessageBox.Show(Name+" is already existed!");
+                    }
+                    catch(Exception ex)
+                    {
+                        System.Windows.MessageBox.Show(ex.Message);
+                    }
+                    finally
+                    {
+                        con.Close();
+                    }
                 }
             }
-		}
-
+        }
 
 		private void Insert_Name_GotFocus(object sender,RoutedEventArgs e)
 		{
@@ -291,28 +318,63 @@ namespace Contact_Book
 		#region 搜索数据
 		private void Click_Search(object sender,RoutedEventArgs e)
 		{
-			if(Doc!=null)
+			if(this.Search_Name.Text.Trim().Equals(string.Empty))
+				System.Windows.MessageBox.Show("Empty Name Inserted!");
+			else
 			{
-				if(this.Search_Name.Text.Trim().Equals(string.Empty))
-					System.Windows.MessageBox.Show("Empty Name Inserted!");
-				else
-				{
-					XmlElement Search_Result = Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()+"/"+ this.Search_Name.Text.Trim()) as XmlElement;
-					if(Search_Result==null)
-						System.Windows.MessageBox.Show(this.Search_Name.Text.Trim()+ "未找到");
-					else
-					{
-						Searched_Detail Search_Info = new Searched_Detail(Search_Result,this.Doc);
-						Doc.Save(XmlPath);
-						this.Contact_Book_View.ItemsSource = Doc.SelectSingleNode(NodeTree + "/" + Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
-						Contact_Book_View.UpdateLayout();
+				//XmlElement Search_Result = Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()+"/"+this.Search_Name.Text.Trim()) as XmlElement;
+				//if(Search_Result==null)
+				//	System.Windows.MessageBox.Show(this.Search_Name.Text.Trim()+"未找到");
+				//else
+				//{
+				//	Searched_Detail Search_Info = new Searched_Detail(Search_Result,this.Doc);
+				//	Doc.Save(XmlPath);
+				//	this.Contact_Book_View.ItemsSource=Doc.SelectSingleNode(NodeTree+"/"+Sign_in.Get_Confidential_User_ID().Trim()).ChildNodes;
+				//	Contact_Book_View.UpdateLayout();
 
-						Search_Name.Text="输入姓名";
+				//	Search_Name.Text="输入姓名";
+				//}
+				using(SqlConnection con = new SqlConnection(Properties.Settings.Default.DataBaseConnectionString))
+				{
+					try
+					{
+						SqlCommand cmd = new SqlCommand("SELECT Name,City,Tel,QQ FROM Contactors WHERE Belong='"+Sign_in.Get_Confidential_User_ID().Trim()+"'",con);
+						SqlDataAdapter sda = new SqlDataAdapter(cmd);
+						SqlDataAdapter AutoSda = new SqlDataAdapter();fefsef
+						AutoSda.SelectCommand=new SqlCommand("select*From Contactors",con);
+						SqlCommandBuilder ComBuild = new SqlCommandBuilder(AutoSda);
+						con.Open();
+						DataTable dt = new DataTable();
+						sda.Fill(dt);
+						DataRow Rows_Selected = dt.Select("Name='"+this.Insert_Name.Text.Trim()+"'")[0];
+						if(Rows_Selected==null)
+						{
+							Object[] temp = new Object[5];
+							temp[0]=ContactData.Get_Name();
+							temp[1]=ContactData.Get_City();
+							temp[2]=ContactData.Get_Tel();
+							temp[3]=ContactData.Get_QQ();
+							temp[4]=Sign_in.Get_Confidential_User_ID();
+							dt.LoadDataRow(temp,true);
+							sda.Update(dt);
+							dt.AcceptChanges();
+							Contact_Book_View.ItemsSource=dt.DefaultView;
+						}
+						else
+							System.Windows.MessageBox.Show(Name+" is already existed!");
+					}
+					catch(Exception ex)
+					{
+						System.Windows.MessageBox.Show(ex.Message);
+					}
+					finally
+					{
+						con.Close();
 					}
 				}
 			}
-			else
-				System.Windows.MessageBox.Show("No Contact Book Loaded!");
+
+			//System.Windows.MessageBox.Show("No Contact Book Loaded!");
 		}
 
 		#endregion
