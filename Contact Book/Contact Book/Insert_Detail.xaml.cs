@@ -42,17 +42,6 @@ namespace Contact_Book
 			this.Close();
 		}
 
-		//private void KeyDown_Tel(object sender,System.Windows.Input.KeyEventArgs e)
-		//{
-		//	if(e.Key>=Key.D0&&e.Key<=Key.D9)
-		//		e.Handled=true;
-		//}
-
-		//private void KeyDown_QQ(object sender,System.Windows.Input.KeyEventArgs e)
-		//{
-		//	if(e.Key>=Key.D0&&e.Key<=Key.D9)
-		//		e.Handled=true;
-		//}
 		private void TextBox_Tel_Pasting(object sender,DataObjectPastingEventArgs e)
 	        {
 	            if (e.DataObject.GetDataPresent(typeof(String)))

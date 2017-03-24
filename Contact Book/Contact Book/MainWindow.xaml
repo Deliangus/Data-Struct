@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Contact Book" ResizeMode="CanMinimize" Icon="pack://siteoforigin:,,,/Resources/MainWindow_ICO.ico"
+        
+        Title="Contact Book" ResizeMode="CanMinimize" Icon="pack://siteoforigin:,,,/Resources/MainWindow_ICO.ico" WindowStartupLocation="CenterScreen" AllowDrop="True"
         >
     <Window.Background>
         <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/Sign In BackGround.jpg"/>
@@ -14,9 +15,6 @@
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
                     <MenuItem Header="Log Out" Click="Click_Log_Out" InputGestureText="Alt+O"/>
-                    <!--<MenuItem Header="New" InputGestureText="Alt+C" Click="Click_New" Name="Menu_New"/>-->
-                    <MenuItem Header="Save" Click="Click_Save"/>
-                    <!--<MenuItem Header="New Save" Click="Click_New_Save"/>-->
                     <Separator/>
                     <MenuItem Header="Exit" Click="Click_Exit"/>
                 </MenuItem>
@@ -36,9 +34,8 @@
             IsReadOnly="False"
             VerticalContentAlignment="Stretch"
             Margin="0,17,0,108"
-            AutoGenerateColumns="True" KeyDown="KeyDown_Reload" MouseDown="MouseDown_Reload"
-            SelectionMode="Single"
-            SelectedCellsChanged="DataGrid_Selected_Cells_Changed" SelectionUnit="Cell" BeginningEdit="CellsBeginningEdit" Background="{x:Null}"
+            AutoGenerateColumns="False" KeyDown="KeyDown_Reload" MouseDown="MouseDown_Reload"
+            SelectionMode="Single" SelectionUnit="Cell" Background="{x:Null}"
             >
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
@@ -46,13 +43,12 @@
                     <Setter Property="Foreground" Value="White" />
                 </Style>
             </DataGrid.RowStyle>
-            <!--<DataGrid.Columns>
-                <DataGridTextColumn x:Name="Column_Name" Width="100" IsReadOnly="False" Binding="{Binding XPath=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="Name"/>
-                <DataGridTextColumn x:Name="Column_City" Width="100" IsReadOnly="False" Binding="{Binding XPath=City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="City"/>
-                <DataGridTextColumn x:Name="Column_Tel" Width="100" IsReadOnly="False" Binding="{Binding XPath=Tel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="Tel"/>
-                <DataGridTextColumn x:Name="Column_QQ" Width="100" IsReadOnly="False" Binding="{Binding XPath=QQ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="QQ"/>
-                <DataGridTextColumn x:Name="Column_Reference" Width="100" IsReadOnly="False" Binding="{Binding XPath=Reference,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="备注"/>
-            </DataGrid.Columns>-->
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="Column_Name" Width="100" IsReadOnly="False" Binding="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="Name"/>
+                <DataGridTextColumn x:Name="Column_City" Width="100" IsReadOnly="False" Binding="{Binding Path=City,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="City"/>
+                <DataGridTextColumn x:Name="Column_Tel" Width="100" IsReadOnly="False" Binding="{Binding Path=Tel,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="Tel"/>
+                <DataGridTextColumn x:Name="Column_QQ" Width="100" IsReadOnly="False" Binding="{Binding Path=QQ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Header="QQ"/>
+            </DataGrid.Columns>
         </DataGrid>
         <Grid Margin="0" Height="108" VerticalAlignment="Bottom">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
