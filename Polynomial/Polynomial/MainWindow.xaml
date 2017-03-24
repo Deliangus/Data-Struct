@@ -23,10 +23,28 @@
             <Button Name="Buttomn_Y" Width="50" Content="增加项Y" Click="Click_CreatpolynY"/>
         </StackPanel>
         <Separator Height="10" Visibility="Hidden"/>
-        <TextBlock Width="200" Text="21234" TextAlignment="Center" Name="TextBlock_X"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="F(X):"/>
+            <Separator Width="5" Visibility="Hidden"/>
+            <TextBlock Width="200" TextAlignment="Center" Name="TextBlock_X"/>
+        </StackPanel>
         <Separator Height="10" Visibility="Hidden"/>
-        <TextBlock Width="200" Text="21234" TextAlignment="Center" Name="TextBlock_Y"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="G(X):"/>
+            <Separator Width="5" Visibility="Hidden"/>
+            <TextBlock Width="200" TextAlignment="Center" Name="TextBlock_Y"/>
+        </StackPanel>
         <Separator Height="10" Visibility="Hidden"/>
-        <TextBlock Width="200" Text="21234" TextAlignment="Center" Name="TextBlock_Result"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="ADD:"/>
+            <Separator Width="5" Visibility="Hidden"/>
+            <TextBlock Width="200" TextAlignment="Center" Name="TextBlock_Result_Add"/>
+        </StackPanel>
+        <Separator Height="10" Visibility="Hidden"/>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="AND:"/>
+            <Separator Width="5" Visibility="Hidden"/>
+            <TextBlock Width="200" TextAlignment="Center" Name="TextBlock_Result_And"/>
+        </StackPanel>
     </StackPanel>
 </Window>
