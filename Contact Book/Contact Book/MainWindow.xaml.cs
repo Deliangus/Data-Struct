@@ -22,16 +22,21 @@ namespace Contact_Book
 	{
 		private int Insert_Verifycode = 0;
 		System.Random VerifyCode_Generator = new System.Random(new System.DateTime().Millisecond%1000);
+		#region 初始化组件和窗口并第一次加载当前帐户的联系人数据
 		public MainWindow()
 		{
-            this.Height=SystemParameters.PrimaryScreenHeight;
-            this.Width=this.Height*(double)Properties.Resources.Sign_In_BackGround.Width/Properties.Resources.Sign_In_BackGround.Height;
-            Sign_in Temp = new Sign_in();
-			InitializeComponent();
-            this.FillDataGrid();
-        }
+            this.Height=SystemParameters.PrimaryScreenHeight;//获取当前设备的屏幕分辨率高度作为程序高度
+            this.Width=this.Height*(double)Properties.Resources.Sign_In_BackGround.Width/Properties.Resources.Sign_In_BackGround.Height;//根据屏幕分辨率高度计算出与背景图片比例合适的程序宽度
 
-        private void FillDataGrid()
+            Sign_in Temp = new Sign_in();//弹出并指定登录界面
+
+			InitializeComponent();
+
+            this.FillDataGrid();//加载当前帐户的联系人数据
+		}
+
+#endregion
+		private void FillDataGrid()
         {   
             //大概过程---先配置数据库ConString（因为配置文件App.config把数据库名字改成了这个）,作用是说明在配置文件里直接就可以修改数据库的参数而不用麻烦的在代码里改
             //--然后定义一个字符串用作写T-SQL语句,然后初始化数据库连接(使用配置文件ConString)，字符串放T-sql语句
