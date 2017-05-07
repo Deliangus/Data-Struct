@@ -18,5 +18,8 @@
     <ClCompile Include="进程创建与管理.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="排队服务.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
