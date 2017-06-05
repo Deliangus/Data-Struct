@@ -38,7 +38,10 @@ int main(void)
 		{
 			cout<<"进程 "<<i<<": "<<endl;
 			for(int j = 0;j<num_R;j++)
-				cin>>Alloc[i][j];
+            {
+                cin>>Alloc[i][j];
+                Available[j]-=Alloc[i][j];
+            }
 		}
 
 		int**Need = new int*[num_P];			//各进程仍需的资源数量
@@ -50,7 +53,7 @@ int main(void)
 			{
 				Need[i][j] = MAX[i][j]-Alloc[i][j];
 			}
-		
+
 		cout<<"当前资源分配情况"<<endl;
 		for(int i = 0;i<num_P;i++)
 		{
@@ -74,7 +77,7 @@ int main(void)
 		bool*Flag = new bool[num_P] {0};
 
 		int pro,res,num;
-		
+
 		while(cin>>pro>>res>>num)
 		{
 			if(pro+res+num==0)
@@ -125,6 +128,22 @@ int main(void)
 										cout<<Alloc[i][j]<<'\t';
 									}
 									cout<<endl;
+
+									for(int j = 0;j<num_R;j++)
+									{
+									    if(Need[i][j]==0)
+                                        {
+                                            if(j==num_R-1)
+                                            {
+                                                for(int k = 0;k<num_R;k++)
+                                                {
+                                                    Available[k]+=Alloc[i][k];
+                                                    Alloc[i][k] = 0;
+                                                }
+                                                cout<<"END PROCESS "<<i<<endl;
+                                            }
+                                        }
+									}
 								}
 
 								cout<<endl<<"资源剩余"<<endl;

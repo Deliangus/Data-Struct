@@ -111,6 +111,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="LRU.cpp" />
     <ClCompile Include="排队服务.cpp" />
     <ClCompile Include="进程创建与管理.cpp" />
     <ClCompile Include="银行家算法.cpp" />
